@@ -32,5 +32,5 @@ python -m src.main
 ```
 
 ## Configuration
-Modify `config.py`
+Modify `config.py` to change the configuration
 
