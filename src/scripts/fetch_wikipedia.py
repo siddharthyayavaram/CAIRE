@@ -3,7 +3,7 @@ import random
 import wikipediaapi
 from tqdm import tqdm
 from pathlib import Path
-from src.config import OUTPUT_PATH, DATA_PATH
+from src.config import OUTPUT_PATH, DATA_PATH, BABELNET_WIKI
 from src.utils import save_pickle
 
 USER_AGENTS = [
@@ -80,7 +80,7 @@ def get_non_en_pages(titles):
 
 def wiki_ret(bp, dataset, max_docs=20):
 
-    with open(Path(DATA_PATH) / 'fix_babelnet_source_dict.pkl', 'rb') as f:
+    with open(Path(DATA_PATH) / BABELNET_WIKI, 'rb') as f:
         babelnet_dict = pickle.load(f)
 
     with open(Path(OUTPUT_PATH) / f'{bp}/caire_{dataset}_lemma_match.pkl', 'rb') as f:

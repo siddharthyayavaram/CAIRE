@@ -6,6 +6,11 @@ DATA_PATH = Path("data")
 OUTPUT_PATH = Path("outputs")
 TARGET_LIST = Path(DATA_PATH) / "country_list.pkl"
 
+INDEX_INFOS = "index_infos_merged"
+FAISS_INDICES = "faiss_index_merged"
+LEMMA_EMBEDS = "combined_lemma_embeds.pkl"
+BABELNET_WIKI = 'babelnet_source_dict.pkl'
+
 RETRIEVAL_BATCH_SIZE = 64
 NUMBER_RETRIEVED_IMAGES = 20
 

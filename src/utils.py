@@ -14,6 +14,8 @@ import big_vision.pp.builder as pp_builder  # type: ignore
 import big_vision.pp.ops_image # type: ignore
 import big_vision.pp.ops_text # type: ignore
 
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -33,7 +35,7 @@ def load_model(variant, res, ckpt_path, seqlen):
 
         model = model_mod.Model(**model_cfg)
         init_params = None
-        params = model_mod.load(init_params, ckpt_path, model_cfg)
+        params = model_mod.load(init_params, str(ckpt_path), model_cfg)
 
         pp_img = pp_builder.get_preprocess_fn(f'resize({res})|value_range(-1, 1)')
         pp_txt = pp_builder.get_preprocess_fn(f'tokenize(max_len={seqlen}, model="sentencepiece.model", eos="sticky", pad_value=1, inkey="text")')

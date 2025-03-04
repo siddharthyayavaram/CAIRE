@@ -5,14 +5,14 @@ from PIL import Image, ImageFile
 import torch
 from pathlib import Path
 from src.utils import get_image_paths, load_faiss_index, load_index_info, save_pickle
-from src.config import RETRIEVAL_BATCH_SIZE, NUMBER_RETRIEVED_IMAGES, DATA_PATH, OUTPUT_PATH
+from src.config import RETRIEVAL_BATCH_SIZE, NUMBER_RETRIEVED_IMAGES, DATA_PATH, OUTPUT_PATH, INDEX_INFOS, FAISS_INDICES
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 def process_images(bp, dataset, model, params, pp_img):
 
-    index_info_path = Path(DATA_PATH) / "index_infos_merged_add_49.json"
-    faiss_index_path = Path(DATA_PATH) / "faiss_index_merged_add_49"
+    index_info_path = Path(DATA_PATH) / INDEX_INFOS
+    faiss_index_path = Path(DATA_PATH) / FAISS_INDICES
     
     urls, ids = load_index_info(index_info_path)
     ind = load_faiss_index(faiss_index_path)

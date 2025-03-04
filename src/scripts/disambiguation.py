@@ -4,7 +4,7 @@ import jax.numpy as jnp
 from tqdm import tqdm
 import torch
 from src.utils import get_image_paths, save_pickle
-from src.config import OUTPUT_PATH, DATA_PATH
+from src.config import OUTPUT_PATH, DATA_PATH, LEMMA_EMBEDS
 import logging
 from pathlib import Path
 
@@ -19,7 +19,7 @@ def lemma_match(bp, dataset):
     with open(Path(OUTPUT_PATH) / f"{dataset}_bids_match.pkl", "rb") as f:
         bids_match = pickle.load(f)
 
-    with open(Path(DATA_PATH) / "fix_combined_lemma_embeds.pkl", "rb") as f:
+    with open(Path(DATA_PATH) / LEMMA_EMBEDS, "rb") as f:
         lemma_embeds = pickle.load(f)
 
     LEMMA_RESULTS = []
