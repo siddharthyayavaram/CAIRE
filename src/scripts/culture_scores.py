@@ -1,7 +1,7 @@
 from PIL import Image
 import torch
 import pickle
-from src.utils import get_image_paths
+from src.utils import get_image_paths, save_pickle
 from tqdm import tqdm
 from pathlib import Path
 from src.config import OUTPUT_PATH, PROMPT_TEMPLATE
@@ -52,5 +52,4 @@ def qwen_vl_scores(bp, dataset, target_list):
 
             OUTPUTS.append(OP)
 
-    with open(Path(OUTPUT_PATH) / f'1-5_{dataset}_VLM_qwen.pkl', 'wb') as f:
-        pickle.dump(OUTPUTS, f)
+    save_pickle(Path(OUTPUT_PATH) / f'1-5_{dataset}_VLM_qwen.pkl', OUTPUTS, "1-5 scores")

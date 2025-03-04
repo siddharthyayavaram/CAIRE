@@ -5,7 +5,9 @@ from tqdm import tqdm
 from pathlib import Path
 from src.config import OUTPUT_PATH, DATA_PATH, BABELNET_WIKI
 from src.utils import save_pickle
+import logging
 
+logging.getLogger("wikipediaapi").setLevel(logging.CRITICAL)
 USER_AGENTS = [
     "MyPythonScript/1.0 (contact@example.com)",
     "MyPythonScript/2.0 (contact2@example.com)",
