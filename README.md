@@ -55,19 +55,4 @@ Modify `config.py` to adjust settings.
 - If the setup script fails at any step, verify your network connection and storage availability before re-running it.
 
 ## Project Structure
-```
-/src
-│── models/
-│   │── model_loader.py   
-│── scripts/
-│   │── __init__.py       
-│   │── culture_scores.py
-│   │── disambiguation.py
-│   │── fetch_wikipedia.py
-│   │── retrieval.py      
-│── examples/            
-│── __init__.py           
-│── config.py             
-│── main.py               
-│── utils.py                       
-```
+

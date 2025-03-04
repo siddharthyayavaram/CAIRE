@@ -13,7 +13,7 @@ def run_pipeline():
 
     try:
         logging.info("Initializing model...")
-        model, params, pp_img, _ = load_model(VARIANT, RES, CKPT_PATH, SEQLEN)
+        model, params, pp_img, _ = load_model(VARIANT, RES, CKPT_PATH, SEQLEN, SENTENCE_PIECE_PATH)
 
         logging.info("Processing images...")
         process_images(BP, DATASET, model, params, pp_img)
@@ -22,7 +22,7 @@ def run_pipeline():
         lemma_match(BP, DATASET)
 
         logging.info("Fetching Wikipedia data...")
-        wiki_ret(BP, DATASET, MAX_WIKI_DOCS)
+        wiki_ret(DATASET, MAX_WIKI_DOCS)
 
         logging.info("Computing scores with Qwen VL...")
         qwen_vl_scores(BP, DATASET, TARGET_LIST)
@@ -31,6 +31,7 @@ def run_pipeline():
 
     except Exception:
         logging.error(f"ERROR: ", exc_info=True)
+        return
 
 if __name__ == "__main__":
     run_pipeline()

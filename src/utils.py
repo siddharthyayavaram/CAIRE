@@ -5,6 +5,8 @@ import pickle
 import logging
 import faiss
 import ml_collections  # type: ignore
+import tensorflow as tf
+import absl.logging
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(os.path.join(BASE_DIR, "big_vision"))
@@ -15,11 +17,20 @@ import big_vision.pp.ops_image # type: ignore
 import big_vision.pp.ops_text # type: ignore
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["XLA_FLAGS"] = "--xla_gpu_cuda_data_dir=/usr/local/cuda --xla_gpu_force_compilation_parallelism=1"
+os.environ["NVIDIA_TF32_OVERRIDE"] = "0"
+os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
+os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
 
-# Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.getLogger("absl").setLevel(logging.ERROR)
+logging.getLogger("orbax").setLevel(logging.ERROR)
+logging.getLogger("jax").setLevel(logging.ERROR)
+tf.get_logger().setLevel("ERROR")
 
-def load_model(variant, res, ckpt_path, seqlen):
+absl.logging.set_verbosity(absl.logging.FATAL)
+
+def load_model(variant, res, ckpt_path, seqlen, sent_path):
     try:
         if variant.endswith('-i18n'):
             variant = variant[:-len('-i18n')]
@@ -38,7 +49,7 @@ def load_model(variant, res, ckpt_path, seqlen):
         params = model_mod.load(init_params, str(ckpt_path), model_cfg)
 
         pp_img = pp_builder.get_preprocess_fn(f'resize({res})|value_range(-1, 1)')
-        pp_txt = pp_builder.get_preprocess_fn(f'tokenize(max_len={seqlen}, model="sentencepiece.model", eos="sticky", pad_value=1, inkey="text")')
+        pp_txt = pp_builder.get_preprocess_fn(f'tokenize(max_len={seqlen}, model="{str(sent_path)}", eos="sticky", pad_value=1, inkey="text")')
 
         return model, params, pp_img, pp_txt
 
@@ -56,7 +67,7 @@ def get_image_paths(folder, extensions=("jpg", "jpeg", "png", "gif")):
 
 def load_index_info(index_info_path):
     try:
-        with open(index_info_path, 'r') as file:
+        with open(str(index_info_path), 'r') as file:
             data = json.load(file)
         return data["image_urls"], data["babelnet_ids"]
     except Exception as e:
@@ -65,14 +76,14 @@ def load_index_info(index_info_path):
 
 def load_faiss_index(index_path):
     try:
-        return faiss.read_index(index_path)
+        return faiss.read_index(str(index_path))
     except Exception as e:
         logging.error(f"Failed to load FAISS index: {e}", exc_info=True)
         return None
     
 def save_pickle(file_path, data, description):
     try:
-        with open(file_path, "wb") as file:
+        with open(str(file_path), "wb") as file:
             pickle.dump(data, file)
         logging.info(f"Saved {description} to {file_path}")
     except Exception as e:

@@ -1,12 +1,12 @@
 from pathlib import Path
 
-BP = Path(".")
+BP = Path("src")
 DATASET = 'examples'  # Dataset name
 DATA_PATH = Path("data")
-OUTPUT_PATH = Path("outputs")
+OUTPUT_PATH = Path("src") / "outputs"
 TARGET_LIST = Path(DATA_PATH) / "country_list.pkl"
 
-INDEX_INFOS = "index_infos_merged"
+INDEX_INFOS = "index_infos_merged.json"
 FAISS_INDICES = "faiss_index_merged"
 LEMMA_EMBEDS = "combined_lemma_embeds.pkl"
 BABELNET_WIKI = 'babelnet_source_dict.pkl'
@@ -18,8 +18,9 @@ VARIANT = 'So400m/16-i18n'
 RES = 256
 SEQLEN = 64
 CKPT_PATH = Path("checkpoints") / "webli_i18n_so400m_16_256_78061115.npz"  # model ckpt path
+SENTENCE_PIECE_PATH = Path("checkpoints") / "sentencepiece.model"
 
-MAX_WIKI_DOCS = 20
+MAX_WIKI_DOCS = 3
 
 PROMPT_TEMPLATE = '''We want to assess how relevant an image is to a given culture. 
 We have identified this concept to be closely associated with the image: {entity}. 
