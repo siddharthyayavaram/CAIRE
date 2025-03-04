@@ -1,9 +1,15 @@
 import os
 import json
+import sys
 import pickle
 import logging
 import faiss
 import ml_collections  # type: ignore
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+# Add the correct 'big_vision' path
+sys.path.append(os.path.join(BASE_DIR, "big_vision"))
+
 import big_vision.models.proj.image_text.two_towers as model_mod  # type: ignore
 import big_vision.pp.builder as pp_builder  # type: ignore
 import big_vision.pp.ops_image # type: ignore
