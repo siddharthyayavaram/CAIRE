@@ -1,10 +1,9 @@
 from pathlib import Path
 
-BP = Path("..")
+BP = Path(".")
 DATASET = 'examples'  # Dataset name
 DATA_PATH = Path("data")
-OUTPUT_PATH = Path("output")
-OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
+OUTPUT_PATH = Path("outputs")
 TARGET_LIST = Path(DATA_PATH) / "country_list.pkl"
 
 RETRIEVAL_BATCH_SIZE = 64

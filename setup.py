@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 repo_root = os.path.dirname(os.path.abspath(__file__))
-folders = ["data", "checkpoints"]
+folders = ["data", "checkpoints", os.path.join("src", "outputs")]
 
 for folder in folders:
     folder_path = os.path.join(repo_root, folder)
