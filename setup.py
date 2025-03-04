@@ -10,6 +10,17 @@ for folder in folders:
     os.makedirs(folder_path, exist_ok=True)
     print(f"Created folder: {folder_path}")
 
+big_vision_path = os.path.join(repo_root, "big_vision")
+if not os.path.exists(big_vision_path):
+    print("Cloning big_vision repository...")
+    subprocess.run(
+        ["git", "clone", "https://github.com/google-research/big_vision", big_vision_path],
+        check=True,
+    )
+    print("big_vision repository cloned successfully.")
+else:
+    print("big_vision repository already exists. Skipping clone.")
+
 print("Downloading files into checkpoints/...")
 gsutil_checkpoints = [
     "gsutil cp gs://t5-data/vocabs/mc4.250000.100extra/sentencepiece.model checkpoints/",
