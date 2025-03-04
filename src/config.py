@@ -1,9 +1,10 @@
 from pathlib import Path
 
 BP = Path("..")
-DATASET = ''  # Dataset name
-DATA_PATH = Path("..")
-OUTPUT_PATH = Path("..")
+DATASET = 'examples'  # Dataset name
+DATA_PATH = Path("data")
+OUTPUT_PATH = Path("output")
+OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
 TARGET_LIST = Path(DATA_PATH) / "country_list.pkl"
 
 RETRIEVAL_BATCH_SIZE = 64
@@ -12,7 +13,7 @@ NUMBER_RETRIEVED_IMAGES = 20
 VARIANT = 'So400m/16-i18n'
 RES = 256
 SEQLEN = 64
-CKPT_PATH = './webli_i18n_so400m_16_256_78061115.npz'  # model ckpt path
+CKPT_PATH = Path("checkpoints") / "webli_i18n_so400m_16_256_78061115.npz"  # model ckpt path
 
 MAX_WIKI_DOCS = 20
 

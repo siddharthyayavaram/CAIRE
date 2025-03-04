@@ -25,7 +25,8 @@ files_to_download = [
     "babelnet_source_dict.pkl",
     "combined_lemma_embeds.pkl",
     "faiss_index_merged",
-    "index_infos_merged.json"
+    "index_infos_merged.json",
+    "country_list.pkl"
 ]
 
 for file in files_to_download:
