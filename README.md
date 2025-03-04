@@ -32,5 +32,5 @@ python -m src.main
 ```
 
 ## Configuration
-Modify `config.py` to customize settings such as model paths, API keys, and retrieval parameters.
+Modify `config.py`
 
