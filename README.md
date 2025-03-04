@@ -4,7 +4,7 @@
 CAIRE
 
 <p align="center">
-  <img src="assets/fig2.pdf" width="70%">
+  <img src="assets/fig.jpg" width="70%">
 </p>
 
 ## Project Structure
