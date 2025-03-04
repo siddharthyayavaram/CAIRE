@@ -1,7 +1,11 @@
 # CAIRE
 
 ## Overview
-CAIRE is a project designed for cultural evaluation and retrieval tasks. The setup process will create necessary directories, download required model checkpoints and data files, and set up the Conda environment for execution.
+CAIRE
+
+<p align="center">
+  <img src="assets/fig2.pdf" width="70%">
+</p>
 
 ## Project Structure
 ```
