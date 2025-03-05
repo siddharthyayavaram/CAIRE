@@ -16,18 +16,11 @@ import big_vision.pp.builder as pp_builder  # type: ignore
 import big_vision.pp.ops_image # type: ignore
 import big_vision.pp.ops_text # type: ignore
 
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-os.environ["XLA_FLAGS"] = "--xla_gpu_cuda_data_dir=/usr/local/cuda --xla_gpu_force_compilation_parallelism=1"
-os.environ["NVIDIA_TF32_OVERRIDE"] = "0"
-os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
-os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
-
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logging.getLogger("absl").setLevel(logging.ERROR)
 logging.getLogger("orbax").setLevel(logging.ERROR)
 logging.getLogger("jax").setLevel(logging.ERROR)
 tf.get_logger().setLevel("ERROR")
-
 absl.logging.set_verbosity(absl.logging.FATAL)
 
 def load_model(variant, res, ckpt_path, seqlen, sent_path):
