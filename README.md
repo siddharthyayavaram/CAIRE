@@ -107,11 +107,11 @@ Modify `config.py` to adjust runtime settings.
 │   │   ├── 📄 fetch_wikipedia.py                       # Wikipedia data retrieval  
 │   │   ├── 📄 retrieval.py                             # Entity retrieval
 │   │   ├── 📄 utils.py                                 # Utility functions
-│   │   ├── 📂 outputs/                                 # Outputs from running the pipeline (main)
-│   │   │   ├── 📄 {DATASET}_bids_match.pkl             # Entity matching results
-│   │   │   ├── 📄 caire_{DATASET}_lemma_match.pkl      # Lemma matching results
-│   │   │   ├── 📄 caire_{DATASET}_wiki.pkl             # Wikipedia-based retrieval results
-│   │   │   ├── 📄 {DATASET}_image_embeddings.pkl       # Image embeddings
+│   ├── 📂 outputs/                                     # Outputs from running the pipeline (main)
+│   │   ├── 📄 {DATASET}_bids_match.pkl                 # Entity matching results
+│   │   ├── 📄 caire_{DATASET}_lemma_match.pkl          # Lemma matching results
+│   │   ├── 📄 caire_{DATASET}_wiki.pkl                 # Wikipedia-based retrieval results
+│   │   │── 📄 {DATASET}_image_embeddings.pkl           # Image embeddings
 │   ├── 📄 config.py                                    # Configuration settings  
 │   ├── 📄 main.py                                      # Main script  
 │   ├── 📄 utils.py                          
@@ -120,12 +120,12 @@ Modify `config.py` to adjust runtime settings.
 │   ├── 📄 sentencepiece.model                
 │   ├── 📄 webli_i18n_so400m_16_256_78061115.npz
 │
-│-- 📂 data/                                            # Metadata from KB
-│   ├── 📄 babelnet_source_dict.pkl           
-│   ├── 📄 combined_lemma_embeds.pkl          
+│-- 📂 data/                                            # KB Metadata
+│   ├── 📄 babelnet_source_dict.pkl                     # Wikipedia entities from BabelNet
+│   ├── 📄 combined_lemma_embeds.pkl                    # Precomputed lemma embeddings
 │   ├── 📂 faiss_index_merged/                          # FAISS index for retrieval
-│   ├── 📄 index_infos_merged.json            
-│   ├── 📄 country_list.pkl                   
+│   ├── 📄 index_infos_merged.json                      # Metadata corresponding to retrieval
+│   ├── 📄 country_list.pkl                             # List of 10 populous, diverse countries
 │
 │-- 📄 README.md                              
 │-- 📄 setup.py                                         # Installation script  
