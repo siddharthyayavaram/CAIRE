@@ -50,9 +50,10 @@ conda activate caire
 
 ## Storage Requirements  
 
-Ensure you have enough disk space:  
-- `checkpoints/` requires **~4GB**  
-- `data/` requires **~31GB**  
+> [!IMPORTANT]
+> Ensure you have sufficient disk space before proceeding:
+- checkpoints/ requires **~4GB**
+- data/ requires **~31GB**
 
 ## Usage  
 
