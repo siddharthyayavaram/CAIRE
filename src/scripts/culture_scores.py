@@ -28,7 +28,7 @@ def qwen_vl_scores(bp, dataset, target_list):
         for idx, img_path in enumerate(tqdm(image_paths, desc="Processing Images")):
             OP = []
 
-            wiki = x[idx][0]['text'][:20000]  # Truncated for GPU memory
+            wiki = x[idx][0]['text'][:15000]  # Truncated for GPU memory
             entity = x[idx][0]['title']
 
             image = Image.open(img_path).convert("RGB")
@@ -49,6 +49,7 @@ def qwen_vl_scores(bp, dataset, target_list):
                 token_probs = [probabilities[0, -1, token_id].item() for token_id in token_ids]
 
                 OP.append([target, token_probs])
+                torch.cuda.empty_cache()
 
             OUTPUTS.append(OP)
 
