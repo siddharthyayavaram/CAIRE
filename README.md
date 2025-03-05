@@ -121,11 +121,7 @@ After running `src/main.py`, the following files will be created in `src/outputs
 📂 CAIRE/                                              
 │-- 📂 assets/                                
 │-- 📂 eval/                                            # Evaluation-related files
-│   ├── 📂 src/                                         # Evaluation scripts and notebooks
-│   │   ├── 📄 visualization.ipynb                      # Jupyter Notebook for visualization
-│   ├── 📂 outputs/                                     # Evaluation outputs
-│   │   ├── 📄 1-5_examples_VLM_qwen.pkl                # Output for example images
-│
+│   ├── 📄 visualization.ipynb                          # Jupyter Notebook for visualization
 │-- 📂 src/                                             # Source code directory
 │   ├── 📂 examples/                                    # Sample images for testing (DATASET)
 │   │   ├── 🖼️ eg1.jpg  
