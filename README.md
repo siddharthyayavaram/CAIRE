@@ -78,27 +78,27 @@ Modify `config.py` to adjust runtime settings.
 ```
 📂 assets/            
 📂 eval/                
+  ├── 📂 src/             
+  │   ├── 📄 analysis.ipynb                 # Jupyter Notebook for analysis
   ├── 📂 outputs/             
-  │   ├── 📄 1-5_examples.ipynb      # Jupyter Notebook for analysis  
+  │   ├── 📄 1-5_examples_VLM_qwen.pkl      # Example outputs
 📂 src/  
-  ├── 📂 examples/                   # Sample images for testing  
+  ├── 📂 examples/                          # Sample images for testing  
   │   ├── 🖼️ eg1.jpg  
   │   ├── 🖼️ eg2.jpg  
   │   ├── 🖼️ eg3.jpg  
   │   ├── 🖼️ eg4.jpg  
   │   ├── 🖼️ eg5.jpg  
-  ├── 📂 models/                     # Model-related scripts  
-  │   ├── 📄 model_loader.py         # Model loading script  
-  ├── 📂 scripts/                    # Core functionalities  
-  │   ├── 📄 __init__.py  
-  │   ├── 📄 culture_scores.py       # Cultural score calculations  
-  │   ├── 📄 disambiguation.py       # Lemma matching logic  
-  │   ├── 📄 fetch_wikipedia.py      # Wikipedia data retrieval  
-  │   ├── 📄 retrieval.py            # Entity retrieval  
-  │   ├── 📄 config.py               # Configuration settings  
-  │   ├── 📄 main.py                 # Main script  
-  │   ├── 📄 utils.py                # Utility functions  
-📄 .gitignore                        # Git ignore file  
-📄 README.md                         # Documentation  
-📄 setup.py                          # Installation script  
+  ├── 📂 models/                            # Model-related scripts  
+  │   ├── 📄 model_loader.py                # Model loading script  
+  ├── 📂 scripts/                           # Core functionalities  
+  │   ├── 📄 culture_scores.py              # Cultural score calculations  
+  │   ├── 📄 disambiguation.py              # Lemma matching logic  
+  │   ├── 📄 fetch_wikipedia.py             # Wikipedia data retrieval  
+  │   ├── 📄 retrieval.py                   # Entity retrieval  
+  ├── 📄 config.py                          # Configuration settings  
+  ├── 📄 main.py                            # Main script  
+  ├── 📄 utils.py                           # Utility functions  
+📄 README.md                                # Documentation  
+📄 setup.py                                 # Installation script  
 ```  
