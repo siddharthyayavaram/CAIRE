@@ -57,6 +57,62 @@ python setup.py
 ```sh
 conda activate caire
 ```  
+Here’s an improved version with additional details about `config.py`:  
+
+---
+
+## **Usage**  
+
+### **Running CAIRE**  
+
+CAIRE processes datasets stored as folders of images. An example dataset with five images is provided in `src/examples`.  
+The dataset name and various configurations are specified in `src/config.py`, including the base path (`BP`) and important parameters for retrieval and model processing.  
+
+### **Configuration Details (`config.py`)**  
+
+- **Paths**  
+  - `BP`, `DATA_PATH`, and `OUTPUT_PATH` define the locations for input data and outputs.  
+  - `TARGET_LIST` provides a reference list for entity matching.  
+
+- **Retrieval & Indexing**  
+  - `INDEX_INFOS`, `FAISS_INDICES`, and `LEMMA_EMBEDS` are used for image and text retrieval.  
+  - `BABELNET_WIKI` stores Wikipedia sources of the BabelNet entities.  
+  - `RETRIEVAL_BATCH_SIZE` controls the batch size for retrieval.  
+
+- **Model Parameters**  
+  - `VARIANT`, `RES`, and `SEQLEN` specify model architecture settings.  
+  - `CKPT_PATH` and `SENTENCE_PIECE_PATH` define the model checkpoint and tokenizer locations.  
+
+- **Wikipedia Retrieval**  
+  - `MAX_WIKI_DOCS` limits the number of Wikipedia documents retrieved per query.  
+
+### **Running the Pipeline**  
+
+Execute the following command to process the dataset:  
+
+```sh
+python -m src.main
+```  
+
+This processes images in `src/examples` and generates output files in `src/outputs`.  
+
+### **Output Files**  
+
+After running `src/main.py`, the following files will be created in `src/outputs/{DATASET}`:  
+
+- **`{DATASET}_bids_match.pkl`** – Entity matching results  
+- **`caire_{DATASET}_lemma_match.pkl`** – Lemma-based matching results  
+- **`caire_{DATASET}_wiki.pkl`** – Wikipedia-based retrieval results  
+- **`{DATASET}_image_embeddings.pkl`** – Image embeddings  
+- **`1-5_{DATASET}_VLM_qwen.pkl`** – Final 1-5 scoring results  
+
+### **Visualization**  
+
+For visualizing the 1-5 scores for the example images:  
+
+```sh
+eval/src/visualization.ipynb
+```
 
 ## Storage Requirements  
 
@@ -64,15 +120,6 @@ conda activate caire
 > Ensure you have sufficient disk space before proceeding:
 - checkpoints/ requires **~4GB**
 - data/ requires **~31GB**
-
-## Usage  
-
-Run CAIRE using:  
-```sh
-python -m src.main
-```  
-This processes the example images in `src/examples`.  
-Results can be found in `eval/src/analysis.ipynb`.  
 
 ## Configuration  
 
@@ -90,7 +137,7 @@ Modify `config.py` to adjust runtime settings.
 │-- 📂 assets/                                
 │-- 📂 eval/                                            # Evaluation-related files
 │   ├── 📂 src/                                         # Evaluation scripts and notebooks
-│   │   ├── 📄 analysis.ipynb                           # Jupyter Notebook for analysis
+│   │   ├── 📄 visualization.ipynb                      # Jupyter Notebook for visualization
 │   ├── 📂 outputs/                                     # Evaluation outputs
 │   │   ├── 📄 1-5_examples_VLM_qwen.pkl                # Output for example images
 │
