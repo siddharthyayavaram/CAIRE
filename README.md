@@ -81,33 +81,54 @@ Modify `config.py` to adjust runtime settings.
 - Ensure `gsutil` is installed and authenticated for required file access.  
 - If setup fails, check your network connection and available storage before retrying.  
 
-## Project Structure  
+## Final Structure  
 
 ```
-📂 assets/            
-📂 eval/                
-  ├── 📂 src/             
-  │   ├── 📄 analysis.ipynb                 # Jupyter Notebook for analysis
-  ├── 📂 outputs/             
-  │   ├── 📄 1-5_examples_VLM_qwen.pkl      # Example outputs
-📂 src/  
-  ├── 📂 examples/                          # Sample images for testing  
-  │   ├── 🖼️ eg1.jpg  
-  │   ├── 🖼️ eg2.jpg  
-  │   ├── 🖼️ eg3.jpg  
-  │   ├── 🖼️ eg4.jpg  
-  │   ├── 🖼️ eg5.jpg  
-  ├── 📂 models/                            # Model-related scripts  
-  │   ├── 📄 model_loader.py                # Model loading script  
-  ├── 📂 scripts/                           # Core functionalities  
-  │   ├── 📄 culture_scores.py              # Cultural score calculations  
-  │   ├── 📄 disambiguation.py              # Lemma matching logic  
-  │   ├── 📄 fetch_wikipedia.py             # Wikipedia data retrieval  
-  │   ├── 📄 retrieval.py                   # Entity retrieval  
-  ├── 📄 config.py                          # Configuration settings  
-  ├── 📄 main.py                            # Main script  
-  ├── 📄 utils.py                           # Utility functions  
-📄 README.md                                # Documentation  
-📄 setup.py                                 # Installation script
-📄 environment.yaml                        
+📂 CAIRE/                                              
+│-- 📂 assets/                                
+│-- 📂 eval/                                            # Evaluation-related files
+│   ├── 📂 src/                                         # Evaluation scripts and notebooks
+│   │   ├── 📄 analysis.ipynb                           # Jupyter Notebook for analysis
+│   ├── 📂 outputs/                                     # Evaluation outputs
+│   │   ├── 📄 1-5_examples_VLM_qwen.pkl                # Output for example images
+│
+│-- 📂 src/                                             # Source code directory
+│   ├── 📂 examples/                                    # Sample images for testing (DATASET)
+│   │   ├── 🖼️ eg1.jpg  
+│   │   ├── 🖼️ eg2.jpg  
+│   │   ├── 🖼️ eg3.jpg  
+│   │   ├── 🖼️ eg4.jpg  
+│   │   ├── 🖼️ eg5.jpg  
+│   ├── 📂 models/                            
+│   │   ├── 📄 model_loader.py                          # Model loading script  
+│   ├── 📂 scripts/                                     # Core functionalities  
+│   │   ├── 📄 culture_scores.py                        # Cultural score calculations  
+│   │   ├── 📄 disambiguation.py                        # Lemma matching logic  
+│   │   ├── 📄 fetch_wikipedia.py                       # Wikipedia data retrieval  
+│   │   ├── 📄 retrieval.py                             # Entity retrieval
+│   │   ├── 📄 utils.py                                 # Utility functions
+│   │   ├── 📂 outputs/                                 # Outputs from running the pipeline (main)
+│   │   │   ├── 📄 {DATASET}_bids_match.pkl             # Entity matching results
+│   │   │   ├── 📄 caire_{DATASET}_lemma_match.pkl      # Lemma matching results
+│   │   │   ├── 📄 caire_{DATASET}_wiki.pkl             # Wikipedia-based retrieval results
+│   │   │   ├── 📄 {DATASET}_image_embeddings.pkl       # Image embeddings
+│   ├── 📄 config.py                                    # Configuration settings  
+│   ├── 📄 main.py                                      # Main script  
+│   ├── 📄 utils.py                          
+│
+│-- 📂 checkpoints/                                     # Model checkpoints
+│   ├── 📄 sentencepiece.model                
+│   ├── 📄 webli_i18n_so400m_16_256_78061115.npz
+│
+│-- 📂 data/                                            # Metadata from KB
+│   ├── 📄 babelnet_source_dict.pkl           
+│   ├── 📄 combined_lemma_embeds.pkl          
+│   ├── 📂 faiss_index_merged/                          # FAISS index for retrieval
+│   ├── 📄 index_infos_merged.json            
+│   ├── 📄 country_list.pkl                   
+│
+│-- 📄 README.md                              
+│-- 📄 setup.py                                         # Installation script  
+│-- 📄 environment.yaml                                 # Conda environment file
+
 ```  
