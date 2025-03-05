@@ -45,7 +45,7 @@ The setup script performs the following tasks:
 - **Downloads dataset files (~31GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
 - **Sets up a Conda environment**: Creates a conda environment `caire` from `environment.yaml`.
 
-### **Step 3: 
+### **Step 3**: 
 Once setup is complete, activate the Conda environment using:  
 ```bash
 conda activate caire
@@ -57,8 +57,9 @@ conda activate caire
 
 ### **Running CAIRE**  
 
-CAIRE processes datasets stored as folders of images. An example dataset with five images is provided in `src/examples`.  
-The dataset name and various configurations are specified in `src/config.py`, including the base path (`BP`) and important parameters for retrieval and model processing.  
+- CAIRE processes datasets stored as folders of images. 
+- An example dataset with five images is provided in `src/examples`.  
+- The dataset name and various configurations are specified in `src/config.py`, including the base path (`BP`) and important parameters for retrieval and model processing.  
 
 ### **Configuration Details (`config.py`)**  
 
