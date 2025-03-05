@@ -32,11 +32,19 @@ cd CAIRE
 ```  
 
 ### **Step 2: Run the Setup Script**  
-The setup script will:  
-- Create necessary directories (`data/` and `checkpoints/`)  
-- Download model checkpoints (~4GB)  
-- Download dataset files (~31GB)  
-- Set up a Conda environment (`caire`)  
+The setup script performs the following tasks:  
+- **Creates necessary directories**: Ensures that the required folders (`data/`, `checkpoints/`, and `src/outputs/`) exist.  
+- **Clones the `big_vision` repository**: Clones Google's [`big_vision`](https://github.com/google-research/big_vision) repository.  
+- **Downloads model checkpoints (~4GB)**: Retrieves pre-trained model checkpoints from Google Cloud Storage and stores them in the `checkpoints/` directory.  
+- **Downloads dataset files (~31GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
+- **Sets up a Conda environment**: Creates a new conda environment `caire` from `environment.yaml`.
+
+### **Next Steps**  
+Once setup is complete, activate the Conda environment using:  
+```bash
+conda activate caire
+```
+Then proceed with running your models or experiments.
 
 Run:  
 ```sh
@@ -100,5 +108,6 @@ Modify `config.py` to adjust runtime settings.
   ├── 📄 main.py                            # Main script  
   ├── 📄 utils.py                           # Utility functions  
 📄 README.md                                # Documentation  
-📄 setup.py                                 # Installation script  
+📄 setup.py                                 # Installation script
+📄 environment.yaml                        
 ```  

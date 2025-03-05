@@ -21,7 +21,7 @@ if not os.path.exists(big_vision_path):
 else:
     print("big_vision repository already exists. Skipping clone.")
 
-print("Downloading files into checkpoints/...")
+print("Downloading models into checkpoints/...")
 gsutil_checkpoints = [
     "gsutil cp gs://t5-data/vocabs/mc4.250000.100extra/sentencepiece.model checkpoints/",
     "gsutil cp gs://big_vision/siglip/webli_i18n_so400m_16_256_78061115.npz checkpoints/"
@@ -53,12 +53,6 @@ if not conda_check.stdout.strip():
 env_file = os.path.join(repo_root, "environment.yaml")
 env_name = "caire"
 
-if os.path.exists(env_file):
-    print(f"Creating Conda environment '{env_name}' from environment.yaml...")
-    subprocess.run(f"conda env create --file {env_file}", shell=True, check=True)
-    print("Conda environment setup complete.")
-else:
-    print("Error: environment.yaml not found. Please provide the file.")
-
-print("\nSetup complete! You can now activate the environment using:")
-print(f"conda activate {env_name}")
+print(f"Creating Conda environment '{env_name}' from environment.yaml...")
+subprocess.run(f"conda env create --file {env_file}", shell=True, check=True)
+print("Conda environment setup complete.")
