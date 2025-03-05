@@ -8,8 +8,6 @@
   <img src="assets/fig.jpg" width="100%">
 </p>  
 
-CAIRE is a cultural-aware retrieval and evaluation framework designed for analyzing and processing multimodal data.  
-
 </div>
 
 ## Abstract
