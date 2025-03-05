@@ -104,7 +104,7 @@ After running `src/main.py`, the following files will be created in `src/outputs
 
 ### **Visualization**  
 
-`eval/visualization.ipynb` visualizes the 1-5 scores for the example images:
+`eval/visualization.ipynb` shows the 1-5 scores and matched Wikipedia pages for the example images.
 
 ---
 ## Storage Requirements  
