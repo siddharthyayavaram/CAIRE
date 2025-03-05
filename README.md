@@ -21,7 +21,7 @@ Additionally, we evaluate text-to-image (T2I) models by:
 
 CAIRE achieves Pearson’s correlations of **0.56** and **0.66** with human ratings on these sets, based on a 5-point Likert scale of cultural relevance. This demonstrates strong alignment with human judgment across diverse image sources.  
 
-[The final directory structure after setup and running the pipeline](#final-structure)
+[Directory structure after setup and running the pipeline](#final-structure)
 
 ## Installation & Setup  
 
@@ -65,10 +65,9 @@ conda activate caire
 
 - **Paths**  
   - `BP`, `DATA_PATH`, and `OUTPUT_PATH` define the locations for input data and outputs.  
-  - `TARGET_LIST` provides a reference list for entity matching.  
 
 - **Retrieval & Indexing**  
-  - `INDEX_INFOS`, `FAISS_INDICES`, and `LEMMA_EMBEDS` are used for image and text retrieval.  
+  - `INDEX_INFOS`, `FAISS_INDICES`, and `LEMMA_EMBEDS` are paths used for image and text retrieval metadata.  
   - `BABELNET_WIKI` stores Wikipedia sources of the BabelNet entities.  
   - `RETRIEVAL_BATCH_SIZE` controls the batch size for retrieval.  
 
@@ -77,10 +76,11 @@ conda activate caire
   - `CKPT_PATH` and `SENTENCE_PIECE_PATH` define the model checkpoint and tokenizer locations.  
 
 - **Wikipedia Retrieval**  
-  - `MAX_WIKI_DOCS` limits the number of Wikipedia documents retrieved per query.  
+  - `MAX_WIKI_DOCS` limits the number of Wikipedia documents retrieved per query image.  
 
-- **VLM Prompt**  
-  - `PROMPT_TEMPLATE` 
+- **Culture scoring**  
+  - `PROMPT_TEMPLATE`
+  - `TARGET_LIST` is the list of possible culture labels 
 
 ### **Running the Pipeline**  
 
@@ -104,11 +104,8 @@ After running `src/main.py`, the following files will be created in `src/outputs
 
 ### **Visualization**  
 
-For visualizing the 1-5 scores for the example images:  
+`eval/src/visualization.ipynb` visualizes the 1-5 scores for the example images:
 
-```sh
-eval/src/visualization.ipynb
-```
 ---
 ## Storage Requirements  
 
