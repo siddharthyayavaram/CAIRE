@@ -2,6 +2,8 @@
 
 # *CAIRE: Cultural Attribution of Images by Retrieval-Augmented Evaluation*
 
+[The final directory structure after setup and running the pipeline](##final-Structure)
+
 ## Overview  
 
 <p align="center">
@@ -38,8 +40,6 @@ The setup script performs the following tasks:
 - **Downloads model checkpoints (~4GB)**: Retrieves pre-trained model checkpoints from Google Cloud Storage and stores them in the `checkpoints/` directory.  
 - **Downloads dataset files (~31GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
 - **Sets up a Conda environment**: Creates a new conda environment `caire` from `environment.yaml`.
-
-[The final directory structure after setup and running the pipeline](##Final-Structure)
 
 ### **Next Steps**  
 Once setup is complete, activate the Conda environment using:  
