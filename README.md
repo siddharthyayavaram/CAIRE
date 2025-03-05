@@ -1,6 +1,6 @@
 <div align="center">
 
-# CAIRE  
+# CAIR<sub>E</sub>: Cultural Attribution of Images by Retrieval-Augmented Evaluation
 
 ## Overview  
 
@@ -8,24 +8,24 @@
   <img src="assets/fig.jpg" width="100%">
 </p>  
 
-CAIRE is a cultural-aware retrieval and evaluation framework designed for analyzing and processing multimodal data.  
+CAIR<sub>E is a cultural-aware retrieval and evaluation framework designed for analyzing and processing multimodal data.  
 
 </div>
 
 ## Abstract
 
 As text-to-image models become increasingly prevalent, ensuring their equitable performance across diverse cultural contexts is critical. While prompt-based interventions have been explored to mitigate biases, they often introduce factual inaccuracies or offensive content. Despite widespread recognition of these challenges [¹](https://tinyurl.com/yc5jjk64), there is no reliable metric to evaluate **cultural relevance** in generated images.  
-To address this gap, we introduce **CAIRE**, a novel framework that assesses cultural relevance by grounding images to entities and concepts in a knowledge base for a user-defined set of free-text labels. On a synthetically constructed dataset of rare and culturally significant items (*synthetic*), built using proprietary models, CAIRE surpasses all baselines by **28% F1 points**.  
+To address this gap, we introduce **CAIR<sub>E**, a novel framework that assesses cultural relevance by grounding images to entities and concepts in a knowledge base for a user-defined set of free-text labels. On a synthetically constructed dataset of rare and culturally significant items (*synthetic*), built using proprietary models, CAIR<sub>E surpasses all baselines by **28% F1 points**.  
 
 Additionally, we evaluate text-to-image (T2I) models by:  
 - Generating images for culturally universal concepts (*concept-generated*)  
 - Retrieving real-world images of the same concepts (*concept-natural*)  
 
-CAIRE achieves Pearson’s correlations of **0.56** and **0.66** with human ratings on these sets, based on a 5-point Likert scale of cultural relevance. This demonstrates strong alignment with human judgment across diverse image sources.  
+CAIR<sub>E achieves Pearson’s correlations of **0.56** and **0.66** with human ratings on these sets, based on a 5-point Likert scale of cultural relevance. This demonstrates strong alignment with human judgment across diverse image sources.  
 
 ## Installation & Setup  
 
-Before running CAIRE, ensure you have Conda installed.  
+Before running CAIR<sub>E, ensure you have Conda installed.  
 
 ### **Step 1: Clone the Repository**  
 ```sh
