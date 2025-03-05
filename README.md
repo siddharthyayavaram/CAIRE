@@ -21,6 +21,8 @@ Additionally, we evaluate text-to-image (T2I) models by:
 
 CAIRE achieves Pearson’s correlations of **0.56** and **0.66** with human ratings on these sets, based on a 5-point Likert scale of cultural relevance. This demonstrates strong alignment with human judgment across diverse image sources.  
 
+[The final directory structure after setup and running the pipeline](#final-structure)
+
 ## Installation & Setup  
 
 Before running CAIRE, ensure you have Conda installed.  
@@ -38,8 +40,6 @@ The setup script performs the following tasks:
 - **Downloads model checkpoints (~4GB)**: Retrieves pre-trained model checkpoints from Google Cloud Storage and stores them in the `checkpoints/` directory.  
 - **Downloads dataset files (~31GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
 - **Sets up a Conda environment**: Creates a new conda environment `caire` from `environment.yaml`.
-
-[The final directory structure after setup and running the pipeline](##Final-Structure)
 
 ### **Next Steps**  
 Once setup is complete, activate the Conda environment using:  
