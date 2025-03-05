@@ -104,7 +104,7 @@ After running `src/main.py`, the following files will be created in `src/outputs
 
 ### **Visualization**  
 
-`eval/src/visualization.ipynb` visualizes the 1-5 scores for the example images:
+`eval/visualization.ipynb` visualizes the 1-5 scores for the example images:
 
 ---
 ## Storage Requirements  
@@ -157,7 +157,7 @@ After running `src/main.py`, the following files will be created in `src/outputs
 │   ├── 📄 index_infos_merged.json                      # Metadata corresponding to retrieval
 │   ├── 📄 country_list.pkl                             # List of 10 populous, diverse countries
 │
-│-- 📂 big_vision/                                      # Cloned repository
+│-- 📂 big_vision/                                      # Cloned repository, helper functions to run mSigLIP
 │
 │-- 📄 README.md                              
 │-- 📄 setup.py                                         # Installation script  
