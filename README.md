@@ -1,6 +1,6 @@
 <div align="center">
 
-# CAIRE: Cultural Attribution of Images by Retrieval-Augmented Evaluation
+# *CAIRE: Cultural Attribution of Images by Retrieval-Augmented Evaluation*
 
 ## Overview  
 
