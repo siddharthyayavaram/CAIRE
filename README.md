@@ -39,6 +39,8 @@ The setup script performs the following tasks:
 - **Downloads dataset files (~31GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
 - **Sets up a Conda environment**: Creates a new conda environment `caire` from `environment.yaml`.
 
+[The final directory structure after setup and running the pipeline](##Final-Structure)
+
 ### **Next Steps**  
 Once setup is complete, activate the Conda environment using:  
 ```bash
@@ -106,12 +108,12 @@ Modify `config.py` to adjust runtime settings.
 │   │   ├── 📄 disambiguation.py                        # Lemma matching logic  
 │   │   ├── 📄 fetch_wikipedia.py                       # Wikipedia data retrieval  
 │   │   ├── 📄 retrieval.py                             # Entity retrieval
-│   │   ├── 📄 utils.py                                 # Utility functions
 │   ├── 📂 outputs/                                     # Outputs from running the pipeline (main)
 │   │   ├── 📄 {DATASET}_bids_match.pkl                 # Entity matching results
 │   │   ├── 📄 caire_{DATASET}_lemma_match.pkl          # Lemma matching results
 │   │   ├── 📄 caire_{DATASET}_wiki.pkl                 # Wikipedia-based retrieval results
 │   │   │── 📄 {DATASET}_image_embeddings.pkl           # Image embeddings
+│   │   │── 📄 1-5_{DATASET}_VLM_qwen.pkl               # Final 1-5 scores
 │   ├── 📄 config.py                                    # Configuration settings  
 │   ├── 📄 main.py                                      # Main script  
 │   ├── 📄 utils.py                          
@@ -126,6 +128,8 @@ Modify `config.py` to adjust runtime settings.
 │   ├── 📂 faiss_index_merged/                          # FAISS index for retrieval
 │   ├── 📄 index_infos_merged.json                      # Metadata corresponding to retrieval
 │   ├── 📄 country_list.pkl                             # List of 10 populous, diverse countries
+│
+│-- 📂 big_vision/                                      # Cloned repository
 │
 │-- 📄 README.md                              
 │-- 📄 setup.py                                         # Installation script  
