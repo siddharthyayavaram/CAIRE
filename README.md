@@ -57,8 +57,6 @@ python setup.py
 ```sh
 conda activate caire
 ```  
-Here’s an improved version with additional details about `config.py`:  
-
 ---
 
 ## **Usage**  
@@ -113,7 +111,7 @@ For visualizing the 1-5 scores for the example images:
 ```sh
 eval/src/visualization.ipynb
 ```
-
+---
 ## Storage Requirements  
 
 > [!IMPORTANT]
@@ -121,15 +119,7 @@ eval/src/visualization.ipynb
 - checkpoints/ requires **~4GB**
 - data/ requires **~31GB**
 
-## Configuration  
-
-Modify `config.py` to adjust runtime settings.  
-
-## Notes  
-
-- Ensure `gsutil` is installed and authenticated for required file access.  
-- If setup fails, check your network connection and available storage before retrying.  
-
+---
 ## Final Structure  
 
 ```
