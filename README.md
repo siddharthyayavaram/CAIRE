@@ -2,8 +2,6 @@
 
 # *CAIRE: Cultural Attribution of Images by Retrieval-Augmented Evaluation*
 
-[The final directory structure after setup and running the pipeline](##final-Structure)
-
 ## Overview  
 
 <p align="center">
@@ -22,6 +20,8 @@ Additionally, we evaluate text-to-image (T2I) models by:
 - Retrieving real-world images of the same concepts (*concept-natural*)  
 
 CAIRE achieves Pearson’s correlations of **0.56** and **0.66** with human ratings on these sets, based on a 5-point Likert scale of cultural relevance. This demonstrates strong alignment with human judgment across diverse image sources.  
+
+[The final directory structure after setup and running the pipeline](#final-structure)
 
 ## Installation & Setup  
 
