@@ -25,38 +25,32 @@ CAIRE achieves Pearson’s correlations of **0.56** and **0.66** with human rati
 
 ## Installation & Setup  
 
-Before running CAIRE, ensure you have Conda installed.  
-
 ### **Step 1: Clone the Repository**  
 ```sh
 git clone https://github.com/siddharthyayavaram/CAIRE
 cd CAIRE
 ```  
 
-### **Step 2: Run the Setup Script**  
-The setup script performs the following tasks:  
-- **Creates necessary directories**: Ensures that the required folders (`data/`, `checkpoints/`, and `src/outputs/`) exist.  
-- **Clones the `big_vision` repository**: Clones Google's [`big_vision`](https://github.com/google-research/big_vision) repository.  
-- **Downloads model checkpoints (~4GB)**: Retrieves pre-trained model checkpoints from Google Cloud Storage and stores them in the `checkpoints/` directory.  
-- **Downloads dataset files (~31GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
-- **Sets up a Conda environment**: Creates a new conda environment `caire` from `environment.yaml`.
-
-### **Next Steps**  
-Once setup is complete, activate the Conda environment using:  
-```bash
-conda activate caire
-```
-Then proceed with running your models or experiments.
+### **Step 2: Run the Setup Script** 
 
 Run:  
 ```sh
 python setup.py
 ```  
 
-### **Step 3: Activate the Conda Environment**  
-```sh
+The setup script performs the following tasks:  
+- **Creates necessary directories**: Ensures that the required folders (`data/`, `checkpoints/`, and `src/outputs/`) exist.  
+- **Clones the `big_vision` repository**: Clones Google's [`big_vision`](https://github.com/google-research/big_vision) repository.  
+- **Downloads model checkpoints (~4GB)**: Downloads pre-trained model checkpoints from Google Cloud Storage and stores them in the `checkpoints/` directory.  
+- **Downloads dataset files (~31GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
+- **Sets up a Conda environment**: Creates a conda environment `caire` from `environment.yaml`.
+
+### **Step 3: 
+Once setup is complete, activate the Conda environment using:  
+```bash
 conda activate caire
-```  
+```
+
 ---
 
 ## **Usage**  
@@ -84,6 +78,9 @@ The dataset name and various configurations are specified in `src/config.py`, in
 - **Wikipedia Retrieval**  
   - `MAX_WIKI_DOCS` limits the number of Wikipedia documents retrieved per query.  
 
+- **VLM Prompt**  
+  - `PROMPT_TEMPLATE` 
+
 ### **Running the Pipeline**  
 
 Execute the following command to process the dataset:  
@@ -96,7 +93,7 @@ This processes images in `src/examples` and generates output files in `src/outpu
 
 ### **Output Files**  
 
-After running `src/main.py`, the following files will be created in `src/outputs/{DATASET}`:  
+After running `src/main.py`, the following files will be created in `src/outputs/`:  
 
 - **`{DATASET}_bids_match.pkl`** – Entity matching results  
 - **`caire_{DATASET}_lemma_match.pkl`** – Lemma-based matching results  
@@ -120,7 +117,7 @@ eval/src/visualization.ipynb
 - data/ requires **~31GB**
 
 ---
-## Final Structure  
+## Final Directory Structure  
 
 ```
 📂 CAIRE/                                              
