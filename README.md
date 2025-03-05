@@ -21,7 +21,7 @@ Additionally, we evaluate text-to-image (T2I) models by:
 
 CAIRE achieves Pearson’s correlations of **0.56** and **0.66** with human ratings on these sets, based on a 5-point Likert scale of cultural relevance. This demonstrates strong alignment with human judgment across diverse image sources.  
 
-[Directory structure after setup and running the pipeline](#final-structure)
+[Directory structure after setup and running the pipeline](#final-directory-structure)
 
 ## Installation & Setup  
 
