@@ -41,7 +41,7 @@ files_to_download = [
 ]
 
 for file in files_to_download:
-    cmd = f"gsutil cp gs://image-cultural-evaluation/{file} data/"
+    cmd = f"gsutil cp gs://{GCLOUD}/{file} data/"
     subprocess.run(cmd, shell=True, check=True)
 print("Data download complete.")
 
