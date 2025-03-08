@@ -27,7 +27,7 @@ CAIRE achieves Pearson’s correlations of **0.56** and **0.66** with human rati
 
 ### **Step 1: Clone the Repository**  
 ```sh
-git clone https://github.com/siddharthyayavaram/CAIRE
+git clone https://github.com/<>/CAIRE
 cd CAIRE
 ```  
 
