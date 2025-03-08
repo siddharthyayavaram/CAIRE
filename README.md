@@ -5,7 +5,7 @@
 ## Overview  
 
 <p align="center">
-  <img src="assets/fig.jpg" width="100%">
+  <img src="assets/fig2_caire.jpg" width="100%">
 </p>  
 
 </div>
