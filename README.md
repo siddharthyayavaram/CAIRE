@@ -38,7 +38,7 @@ The setup script performs the following tasks:
 - **Creates necessary directories**: Ensures that the required folders (`data/`, `checkpoints/`, and `src/outputs/`) exist.  
 - **Clones the `big_vision` repository**: Clones Google's [`big_vision`](https://github.com/google-research/big_vision) repository.  
 - **Downloads model checkpoints (~4GB)**: Downloads pre-trained model checkpoints from Google Cloud Storage and stores them in the `checkpoints/` directory.  
-- **Downloads dataset files (~31GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
+- **Downloads dataset files (~35GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
 - **Sets up a Conda environment**: Creates a conda environment `caire` from `environment.yaml`.
 
 ### **Step 3**: 
@@ -108,7 +108,7 @@ After running `src/main.py`, the following files will be created in `src/outputs
 > [!IMPORTANT]
 > Ensure you have sufficient disk space before proceeding:
 - checkpoints/ requires **~4GB**
-- data/ requires **~31GB**
+- data/ requires **~35GB**
 
 ---
 ## Final Directory Structure  
