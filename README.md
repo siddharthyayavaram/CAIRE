@@ -43,13 +43,13 @@ The setup script performs the following tasks:
 
 - **Sets up the environment**: Installs dependencies via Conda or Pip.  
   - **Using Conda**:  
-    Create and activate the Conda environment with the following commands:  
+
     ```sh
     conda env create -f environment.yaml
     conda activate caire
     ```
   - **With Pip**:  
-    Alternatively, you can install the package directly using Pip:  
+
     ```sh
     pip install -e .
     ```
