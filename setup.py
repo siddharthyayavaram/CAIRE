@@ -35,7 +35,7 @@ class DownloadAssetsCommand(Command):
         gsutil_checkpoints = [
             "gsutil cp gs://t5-data/vocabs/mc4.250000.100extra/sentencepiece.model checkpoints/",
             "gsutil cp gs://big_vision/siglip/webli_i18n_so400m_16_256_78061115.npz checkpoints/"
-        ]
+        ]    
         for cmd in gsutil_checkpoints:
             subprocess.run(cmd, shell=True, check=True)
         print("Checkpoints download complete.")

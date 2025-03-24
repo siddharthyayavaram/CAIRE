@@ -50,6 +50,18 @@ The setup process performs the following tasks:
     pip install -e .
     ```
 
+#### Additional Dependencies
+
+Install the following dependencies:
+
+```sh
+pip install git+https://github.com/google/CommonLoopUtils
+pip install git+https://github.com/google/flaxformer
+pip install git+https://github.com/akolesnikoff/panopticapi.git@mute
+pip install gsutil
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+
 - **Creates necessary directories**: Ensures the existence of required folders (data/, checkpoints/, and src/outputs/).
 - **Clones the big_vision repository**: Retrieves Google's [big_vision](https://github.com/google-research/big_vision) repository.
 - **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the checkpoints/ directory.
@@ -59,17 +71,6 @@ The setup process performs the following tasks:
 
 ```sh
 python setup.py download_assets
-```
-
-#### Additional Dependencies
-
-Install the following dependencies:
-
-```sh
-pip install git+https://github.com/google/CommonLoopUtils
-pip install git+https://github.com/google/flaxformer
-pip install git+https://github.com/akolesnikoff/panopticapi.git@mute
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
 
 For further details regarding the installation of PyTorch, please refer to the [official PyTorch guide](https://pytorch.org/get-started/locally/).
