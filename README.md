@@ -40,24 +40,19 @@ The setup script performs the following tasks:
 - **Clones the big_vision repository**: Retrieves Google's [big_vision](https://github.com/google-research/big_vision) repository.
 - **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the checkpoints/ directory.
 - **Downloads dataset files (~35GB)**: Fetches preprocessed datasets and lookup files, storing them in data/.
-- **Sets up the environment**: Installs dependencies via Conda or Pip.
 
-#### Option 1: Using Conda (Recommended)
-
-Create and activate the Conda environment with the following commands:
-
-```sh
-conda env create -f environment.yaml
-conda activate caire
-```
-
-#### Option 2: Without Conda
-
-Alternatively, you can install the package directly using Pip:
-
-```sh
-pip install -e .
-```
+- **Sets up the environment**: Installs dependencies via Conda or Pip.  
+  - **Using Conda**:  
+    Create and activate the Conda environment with the following commands:  
+    ```sh
+    conda env create -f environment.yaml
+    conda activate caire
+    ```
+  - **With Pip**:  
+    Alternatively, you can install the package directly using Pip:  
+    ```sh
+    pip install -e .
+    ```
 
 #### Downloading Assets and Data
 
