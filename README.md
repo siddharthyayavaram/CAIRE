@@ -47,7 +47,6 @@ The setup script performs the following tasks:
 
 #### **Option 1: Using Conda (Recommended)**
 ```sh
-python setup.py
 conda env create -f environment.yaml
 conda activate caire
 ```
@@ -55,6 +54,11 @@ conda activate caire
 #### **Option 2: Without Conda**
 ```sh
 pip install -e .
+```
+
+#### **Downloading assets**
+
+```sh
 python setup.py download_assets
 ```
 
