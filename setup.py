@@ -43,8 +43,8 @@ class DownloadAssetsCommand(Command):
         print("Downloading files into data/...")
 
         files_to_download = [
-            "babelnet_source_dict.pkl",
-            "combined_lemma_embeds.pkl",
+            "fix_babelnet_source_dict.pkl",
+            "fix_combined_lemma_embeds.pkl",
             "faiss_index_merged",
             "index_infos_merged.json",
             "country_list.pkl"
