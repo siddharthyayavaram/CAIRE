@@ -59,9 +59,7 @@ Alternatively, you can install the package directly using Pip:
 pip install -e .
 ```
 
-#### Downloading Additional Assets
-
-Run the following command to download additional assets:
+#### Downloading Assets and Data
 
 ```sh
 python setup.py download_assets
