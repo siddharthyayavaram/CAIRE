@@ -27,24 +27,50 @@ git clone https://github.com/<>/CAIRE
 cd CAIRE
 ```  
 
-### **Step 2: Run the Setup Script** 
+### **Step 2: Run the Setup Script**
 
-Run:  
+The setup script performs the following tasks:
+- **Creates necessary directories**: Ensures the existence of required folders (`data/`, `checkpoints/`, and `src/outputs/`).
+- **Clones the `big_vision` repository**: Retrieves Google's [`big_vision`](https://github.com/google-research/big_vision) repository.
+- **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the `checkpoints/` directory.
+- **Downloads dataset files (~35GB)**: Fetches preprocessed datasets and lookup files, storing them in `data/`.
+- **Sets up the environment**: Installs dependencies via Conda or Pip.
+
+### **Step 2: Run the Setup Script**
+
+The setup script performs the following tasks:
+- **Creates necessary directories**: Ensures the existence of required folders (`data/`, `checkpoints/`, and `src/outputs/`).
+- **Clones the `big_vision` repository**: Retrieves Google's [`big_vision`](https://github.com/google-research/big_vision) repository.
+- **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the `checkpoints/` directory.
+- **Downloads dataset files (~35GB)**: Fetches preprocessed datasets and lookup files, storing them in `data/`.
+- **Sets up the environment**: Installs dependencies via Conda or Pip.
+
+#### **Option 1: Using Conda (Recommended)**
 ```sh
 python setup.py
-```  
-
-The setup script performs the following tasks:  
-- **Creates necessary directories**: Ensures that the required folders (`data/`, `checkpoints/`, and `src/outputs/`) exist.  
-- **Clones the `big_vision` repository**: Clones Google's [`big_vision`](https://github.com/google-research/big_vision) repository.  
-- **Downloads model checkpoints (~4GB)**: Downloads pre-trained model checkpoints from Google Cloud Storage and stores them in the `checkpoints/` directory.  
-- **Downloads dataset files (~35GB)**: Fetches various preprocessed datasets and lookup files, storing them in `data/`.  
-- **Sets up a Conda environment**: Creates a conda environment `caire` from `environment.yaml`.
-
-### **Step 3**: 
-Once setup is complete, activate the Conda environment using:  
-```bash
+conda env create -f environment.yaml
 conda activate caire
+```
+
+#### **Option 2: Without Conda**
+```sh
+pip install -e .
+python setup.py download_assets
+```
+
+#### **Additional Dependencies**
+```sh
+pip install git+https://github.com/google/CommonLoopUtils
+pip install git+https://github.com/google/flaxformer
+pip install git+https://github.com/akolesnikoff/panopticapi.git@mute
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+
+For additional PyTorch installation details, refer to [PyTorch's official guide](https://pytorch.org/get-started/locally/).
+
+*If using an Ampere GPU, install FlashAttention:*
+```sh
+pip install flash-attn --no-build-isolation
 ```
 
 ---
