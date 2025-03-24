@@ -33,9 +33,9 @@ git clone https://github.com/<>/CAIRE
 cd CAIRE
 ```
 
-### Step 2: Run the Setup Script
+### Step 2: Setup
 
-The setup script performs the following tasks:
+The setup process performs the following tasks:
 - **Creates necessary directories**: Ensures the existence of required folders (data/, checkpoints/, and src/outputs/).
 - **Clones the big_vision repository**: Retrieves Google's [big_vision](https://github.com/google-research/big_vision) repository.
 - **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the checkpoints/ directory.
