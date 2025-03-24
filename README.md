@@ -19,41 +19,58 @@ On a manually curated dataset of culturally salient but rare items built using l
 
 [Directory structure after setup and running the pipeline](#final-directory-structure)
 
-## Installation & Setup  
+---
 
-### **Step 1: Clone the Repository**  
+## Installation and Setup
+
+**Prerequisites:**  
+- Python version 3.10 or later.
+
+### Step 1: Clone the Repository
+
 ```sh
 git clone https://github.com/<>/CAIRE
 cd CAIRE
-```  
+```
 
-### **Step 2: Run the Setup Script**
+### Step 2: Run the Setup Script
 
 The setup script performs the following tasks:
-- **Creates necessary directories**: Ensures the existence of required folders (`data/`, `checkpoints/`, and `src/outputs/`).
-- **Clones the `big_vision` repository**: Retrieves Google's [`big_vision`](https://github.com/google-research/big_vision) repository.
-- **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the `checkpoints/` directory.
-- **Downloads dataset files (~35GB)**: Fetches preprocessed datasets and lookup files, storing them in `data/`.
+- **Creates necessary directories**: Ensures the existence of required folders (data/, checkpoints/, and src/outputs/).
+- **Clones the big_vision repository**: Retrieves Google's [big_vision](https://github.com/google-research/big_vision) repository.
+- **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the checkpoints/ directory.
+- **Downloads dataset files (~35GB)**: Fetches preprocessed datasets and lookup files, storing them in data/.
 - **Sets up the environment**: Installs dependencies via Conda or Pip.
 
-#### **Option 1: Using Conda (Recommended)**
+#### Option 1: Using Conda (Recommended)
+
+Create and activate the Conda environment with the following commands:
+
 ```sh
 conda env create -f environment.yaml
 conda activate caire
 ```
 
-#### **Option 2: Without Conda**
+#### Option 2: Without Conda
+
+Alternatively, you can install the package directly using Pip:
+
 ```sh
 pip install -e .
 ```
 
-#### **Downloading assets**
+#### Downloading Additional Assets
+
+Run the following command to download additional assets:
 
 ```sh
 python setup.py download_assets
 ```
 
-#### **Additional Dependencies**
+#### Additional Dependencies
+
+Install the following dependencies:
+
 ```sh
 pip install git+https://github.com/google/CommonLoopUtils
 pip install git+https://github.com/google/flaxformer
@@ -61,9 +78,11 @@ pip install git+https://github.com/akolesnikoff/panopticapi.git@mute
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
 
-For additional PyTorch installation details, refer to [PyTorch's official guide](https://pytorch.org/get-started/locally/).
+For further details regarding the installation of PyTorch, please refer to the [official PyTorch guide](https://pytorch.org/get-started/locally/).
 
-*If using an Ampere GPU, install FlashAttention:*
+**Note:**  
+If you are using an Ampere GPU, please install FlashAttention with the following command:
+
 ```sh
 pip install flash-attn --no-build-isolation
 ```
