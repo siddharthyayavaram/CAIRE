@@ -171,7 +171,11 @@ setup(
         "werkzeug",
         "wikipedia-api",
         "wrapt",
-        "zipp",
+        "zipp", 
+        "gsutil",
+        "flaxformer @ git+https://github.com/google/flaxformer.git",
+        "panopticapi @ git+https://github.com/akolesnikoff/panopticapi.git",
+        "clu @ git+https://github.com/google/CommonLoopUtils.git"
     ],
     cmdclass={
         "download_assets": DownloadAssetsCommand,

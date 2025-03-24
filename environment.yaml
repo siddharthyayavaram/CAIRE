@@ -136,3 +136,4 @@ dependencies:
     - wikipedia-api==0.8.1
     - wrapt==1.17.2
     - zipp==3.21.0
+    - gsutil==5.33

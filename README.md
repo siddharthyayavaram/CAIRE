@@ -43,6 +43,10 @@ The setup process performs the following tasks:
     ```sh
     conda env create -f environment.yaml
     conda activate caire
+
+    pip install git+https://github.com/google/CommonLoopUtils
+    pip install git+https://github.com/google/flaxformer
+    pip install git+https://github.com/akolesnikoff/panopticapi.git@mute
     ```
   - **With Pip**:  
 
@@ -50,15 +54,9 @@ The setup process performs the following tasks:
     pip install -e .
     ```
 
-#### Additional Dependencies
-
-Install the following dependencies:
+#### PyTorch Installation Dependencies
 
 ```sh
-pip install git+https://github.com/google/CommonLoopUtils
-pip install git+https://github.com/google/flaxformer
-pip install git+https://github.com/akolesnikoff/panopticapi.git@mute
-pip install gsutil
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
 
