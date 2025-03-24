@@ -36,10 +36,6 @@ cd CAIRE
 ### Step 2: Setup
 
 The setup process performs the following tasks:
-- **Creates necessary directories**: Ensures the existence of required folders (data/, checkpoints/, and src/outputs/).
-- **Clones the big_vision repository**: Retrieves Google's [big_vision](https://github.com/google-research/big_vision) repository.
-- **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the checkpoints/ directory.
-- **Downloads dataset files (~35GB)**: Fetches preprocessed datasets and lookup files, storing them in data/.
 
 - **Sets up the environment**: Installs dependencies via Conda or Pip.  
   - **Using Conda**:  
@@ -53,6 +49,11 @@ The setup process performs the following tasks:
     ```sh
     pip install -e .
     ```
+
+- **Creates necessary directories**: Ensures the existence of required folders (data/, checkpoints/, and src/outputs/).
+- **Clones the big_vision repository**: Retrieves Google's [big_vision](https://github.com/google-research/big_vision) repository.
+- **Downloads model checkpoints (~4GB)**: Saves pre-trained model checkpoints in the checkpoints/ directory.
+- **Downloads dataset files (~35GB)**: Fetches preprocessed datasets and lookup files, storing them in data/.
 
 #### Downloading Assets and Data
 
