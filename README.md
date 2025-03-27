@@ -26,14 +26,14 @@ On a manually curated dataset of culturally salient but rare items built using l
 **Prerequisites:**  
 - Python version 3.10 or later.
 
-### Step 1: Clone the Repository
+#### Step 1: Clone the Repository
 
 ```sh
 git clone https://github.com/<>/CAIRE
 cd CAIRE
 ```
 
-### Step 2: Setup  
+#### Step 2: Setup  
 
 The setup process performs the following tasks:  
 
@@ -43,7 +43,7 @@ You can install dependencies using either **Conda** or **Pip**.
 
 ---
 
-### **Option 1: Using Conda**  
+#### **Option 1: Using Conda**  
 
 1. Create and activate the Conda environment:  
    ```sh
@@ -59,7 +59,7 @@ You can install dependencies using either **Conda** or **Pip**.
 
 ---
 
-### **Option 2: Using Pip (Recommended)**  
+#### **Option 2: Using Pip (Recommended)**  
 
 1. Create a virtual environment and activate it:  
    ```sh
@@ -86,7 +86,7 @@ If you are using an **Ampere GPU**, ensure that your CUDA version is **11.7 or h
 pip install flash-attn --no-build-isolation
 ```
 
-### Additional Setup Functionality
+#### **2. Additional Setup Functionality**
 
 - **Creates necessary directories**: Ensures the existence of required folders (data/, checkpoints/, and src/outputs/).
 - **Clones the big_vision repository**: Retrieves Google's [big_vision](https://github.com/google-research/big_vision) repository.
@@ -143,16 +143,12 @@ export XLA_PYTHON_CLIENT_PREALLOCATE=false
 
 #### **Option 1: Running the Scripts Manually**  
 
-Run the following commands sequentially to process the dataset:  
-
 ```sh
-python -m src.main_VEL  # Visual Entity Linking
+python -m src.main_VEL      # Visual Entity Linking
 python -m src.main_culture  # Cultural relevance scoring
 ```  
 
 #### **Option 2: Running with a Shell Script**  
-
-You can also automate execution using the provided `src/run_pipeline.sh` script. To run it, first make it executable:  
 
 ```sh
 chmod +x run_pipeline.sh  # Make the script executable

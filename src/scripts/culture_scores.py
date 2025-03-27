@@ -12,7 +12,7 @@ def qwen_vl_scores(bp, dataset, target_list):
 
     jax.device_put(None, jax.devices("gpu")[0])
     torch.cuda.empty_cache()
-    torch.cuda.memory_allocated(), torch.cuda.memory_reserved()
+    # torch.cuda.memory_allocated(), torch.cuda.memory_reserved()
 
     model, processor, device = load_model('qwen_vl')
 
