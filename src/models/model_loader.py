@@ -30,7 +30,7 @@ def load_model(model_name):
         raise ValueError(f"Invalid model name '{model_name}'.")
 
     config = MODEL_CONFIGS[model_name]
-    model_id = config["model_id"]
+    model_id = config["model_id"]   
     model_class = config["model_class"]
     
     model = model_class.from_pretrained(
@@ -38,7 +38,7 @@ def load_model(model_name):
         torch_dtype=torch.bfloat16,
         device_map="auto",
         **config.get("extra_kwargs", {})
-    ).to(DEVICE)
+    )
     
     processor = AutoProcessor.from_pretrained(model_id)
     

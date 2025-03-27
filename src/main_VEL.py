@@ -1,15 +1,17 @@
 import logging
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 from src.config import *
 from src.utils import load_model
 from src.scripts.retrieval import process_images
 from src.scripts.disambiguation import lemma_match
 from src.scripts.fetch_wikipedia import wiki_ret
-from src.scripts.culture_scores import qwen_vl_scores
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 def run_pipeline():
-    logging.info("Starting the pipeline...")
+    logging.info("Starting VEL...")
 
     try:
         logging.info("Initializing model...")
@@ -24,10 +26,7 @@ def run_pipeline():
         logging.info("Fetching Wikipedia data...")
         wiki_ret(DATASET, MAX_WIKI_DOCS)
 
-        logging.info("Computing scores with Qwen VL...")
-        qwen_vl_scores(BP, DATASET, TARGET_LIST)
-
-        logging.info("Pipeline completed successfully.")
+        logging.info("VEL completed successfully.")
 
     except Exception:
         logging.error(f"ERROR: ", exc_info=True)

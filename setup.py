@@ -4,6 +4,7 @@ from setuptools import setup, find_packages, Command
 
 class DownloadAssetsCommand(Command):
     description = "Download assets, clone repositories, and create necessary folders."
+    user_options = []
 
     def initialize_options(self):
         pass
@@ -50,7 +51,7 @@ class DownloadAssetsCommand(Command):
             "country_list.pkl"
         ]
 
-        GCLOUD = "path to google cloud storage"
+        GCLOUD = "image-cultural-evaluation"
 
         for file in files_to_download:
             cmd = f"gsutil cp gs://{GCLOUD}/{file} data/"

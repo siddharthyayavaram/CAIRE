@@ -33,41 +33,60 @@ git clone https://github.com/<>/CAIRE
 cd CAIRE
 ```
 
-### Step 2: Setup
+### Step 2: Setup  
 
-The setup process performs the following tasks:
+The setup process performs the following tasks:  
 
-- **Sets up the environment**: Installs dependencies via Conda or Pip.  
-  - **Using Conda**:  
+#### **1. Setting Up the Environment**  
 
-    ```sh
-    conda env create -f environment.yaml
-    conda activate caire
+You can install dependencies using either **Conda** or **Pip**.  
 
-    pip install git+https://github.com/google/CommonLoopUtils
-    pip install git+https://github.com/google/flaxformer
-    pip install git+https://github.com/akolesnikoff/panopticapi.git@mute
-    ```
-  - **With Pip**:  
+---
 
-    ```sh
-    pip install -e .
-    ```
+### **Option 1: Using Conda**  
 
-#### PyTorch Installation Dependencies
+1. Create and activate the Conda environment:  
+   ```sh
+   conda env create -f environment.yaml
+   conda activate caire
+   ```  
+2. Install additional dependencies:  
+   ```sh
+   pip install git+https://github.com/google/CommonLoopUtils
+   pip install git+https://github.com/google/flaxformer
+   pip install git+https://github.com/akolesnikoff/panopticapi.git@mute
+   ```  
+
+---
+
+### **Option 2: Using Pip (Recommended)**  
+
+1. Create a virtual environment and activate it:  
+   ```sh
+   python -m venv caire
+   source caire/bin/activate
+   ```  
+2. Install dependencies:  
+   ```sh
+   pip install -e .
+   ```  
+
+#### PyTorch Installation
 
 ```sh
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 ```
 
 For further details regarding the installation of PyTorch, please refer to the [official PyTorch guide](https://pytorch.org/get-started/locally/).
 
 **Note:**  
-If you are using an Ampere GPU, please install FlashAttention with the following command:
+If you are using an **Ampere GPU**, ensure that your CUDA version is **11.7 or higher**, then install **FlashAttention** with the following command:  
 
 ```sh
 pip install flash-attn --no-build-isolation
 ```
+
+### Additional Setup Functionality
 
 - **Creates necessary directories**: Ensures the existence of required folders (data/, checkpoints/, and src/outputs/).
 - **Clones the big_vision repository**: Retrieves Google's [big_vision](https://github.com/google-research/big_vision) repository.
@@ -113,13 +132,36 @@ python setup.py download_assets
 
 ### **Running the Pipeline**  
 
-Execute the following command to process the dataset:  
+This pipeline is split into two stages.
+The first script processes images and retrieves relevant data, while the second computes cultural relevance scores.  
+
+Set the following environment variable to avoid memory preallocation issues:  
 
 ```sh
-python -m src.main
+export XLA_PYTHON_CLIENT_PREALLOCATE=false
 ```  
 
-This processes images in `src/examples` and generates output files in `src/outputs`.  
+#### **Option 1: Running the Scripts Manually**  
+
+Run the following commands sequentially to process the dataset:  
+
+```sh
+python -m src.main_VEL  # Visual Entity Linking
+python -m src.main_culture  # Cultural relevance scoring
+```  
+
+#### **Option 2: Running with a Shell Script**  
+
+You can also automate execution using the provided `src/run_pipeline.sh` script. To run it, first make it executable:  
+
+```sh
+chmod +x run_pipeline.sh  # Make the script executable
+./run_pipeline.sh         # Execute the script
+```  
+
+Processed images and outputs will be saved in `src/outputs`.
+
+---
 
 ### **Output Files**  
 
@@ -172,7 +214,9 @@ After running `src/main.py`, the following files will be created in `src/outputs
 │   │   │── 📄 {DATASET}_image_embeddings.pkl           # Image embeddings
 │   │   │── 📄 1-5_{DATASET}_VLM_qwen.pkl               # Final 1-5 scores
 │   ├── 📄 config.py                                    # Configuration settings  
-│   ├── 📄 main.py                                      # Main script  
+│   ├── 📄 main_VEL.py                                  # VEL
+│   ├── 📄 main_culture.py                              # Cultural Relevance Scoring
+│   ├── 📄 run_pipeline.sh                              # Bash script  
 │   ├── 📄 utils.py                          
 │
 │-- 📂 checkpoints/                                     # Model checkpoints
