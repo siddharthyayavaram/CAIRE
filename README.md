@@ -151,8 +151,8 @@ python -m src.main_culture  # Cultural relevance scoring
 #### **Option 2: Running with a Shell Script**  
 
 ```sh
-chmod +x run_pipeline.sh  # Make the script executable
-./run_pipeline.sh         # Execute the script
+chmod +x run_pipeline.sh  
+./run_pipeline.sh         
 ```  
 
 Processed images and outputs will be saved in `src/outputs`.
