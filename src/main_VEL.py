@@ -1,8 +1,6 @@
 import logging
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-from absl import logging
-logging.set_verbosity(logging.ERROR)
 
 from src.config import *
 from src.utils import load_model
