@@ -233,7 +233,6 @@ After running `src/main.py`, the following files will be created in `src/outputs
     │-- 📄 README.md                              
     │-- 📄 setup.py                                         # Installation script  
     │-- 📄 environment.yaml                                 # Conda environment file
-    
     ``` 
 </details>
  
