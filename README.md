@@ -184,55 +184,52 @@ After running `src/main.py`, the following files will be created in `src/outputs
 ---
 ## Final Directory Structure  
 
-<details>
-  <summary>Click to expand</summary>
-  ```bash
-    📂 CAIRE/                                              
-    │-- 📂 assets/                                
-    │-- 📂 eval/                                            # Evaluation-related files
-    │   ├── 📄 visualization.ipynb                          # Jupyter Notebook for visualization
-    │-- 📂 src/                                             # Source code directory
-    │   ├── 📂 examples/                                    # Sample images for testing (DATASET)
-    │   │   ├── 🖼️ eg1.jpg  
-    │   │   ├── 🖼️ eg2.jpg  
-    │   │   ├── 🖼️ eg3.jpg  
-    │   │   ├── 🖼️ eg4.jpg  
-    │   │   ├── 🖼️ eg5.jpg  
-    │   ├── 📂 models/                            
-    │   │   ├── 📄 model_loader.py                          # Model loading script  
-    │   ├── 📂 scripts/                                     # Core functionalities  
-    │   │   ├── 📄 culture_scores.py                        # Cultural score calculations  
-    │   │   ├── 📄 disambiguation.py                        # Lemma matching logic  
-    │   │   ├── 📄 fetch_wikipedia.py                       # Wikipedia data retrieval  
-    │   │   ├── 📄 retrieval.py                             # Entity retrieval
-    │   ├── 📂 outputs/                                     # Outputs from running the pipeline (main)
-    │   │   ├── 📄 {DATASET}_bids_match.pkl                 # Entity matching results
-    │   │   ├── 📄 caire_{DATASET}_lemma_match.pkl          # Lemma matching results
-    │   │   ├── 📄 caire_{DATASET}_wiki.pkl                 # Wikipedia-based retrieval results
-    │   │   │── 📄 {DATASET}_image_embeddings.pkl           # Image embeddings
-    │   │   │── 📄 1-5_{DATASET}_VLM_qwen.pkl               # Final 1-5 scores
-    │   ├── 📄 config.py                                    # Configuration settings  
-    │   ├── 📄 main_VEL.py                                  # VEL
-    │   ├── 📄 main_culture.py                              # Cultural Relevance Scoring
-    │   ├── 📄 run_pipeline.sh                              # Bash script  
-    │   ├── 📄 utils.py                          
-    │
-    │-- 📂 checkpoints/                                     # Model checkpoints
-    │   ├── 📄 sentencepiece.model                
-    │   ├── 📄 webli_i18n_so400m_16_256_78061115.npz
-    │
-    │-- 📂 data/                                            # KB Metadata
-    │   ├── 📄 babelnet_source_dict.pkl                     # Wikipedia entities from BabelNet
-    │   ├── 📄 combined_lemma_embeds.pkl                    # Precomputed lemma embeddings
-    │   ├── 📂 faiss_index_merged/                          # FAISS index for retrieval
-    │   ├── 📄 index_infos_merged.json                      # Metadata corresponding to retrieval
-    │   ├── 📄 country_list.pkl                             # List of 10 populous, diverse countries
-    │
-    │-- 📂 big_vision/                                      # Cloned repository, helper functions to run mSigLIP
-    │
-    │-- 📄 README.md                              
-    │-- 📄 setup.py                                         # Installation script  
-    │-- 📄 environment.yaml                                 # Conda environment file
-    ``` 
-</details>
- 
+```
+📂 CAIRE/                                              
+│-- 📂 assets/                                
+│-- 📂 eval/                                            # Evaluation-related files
+│   ├── 📄 visualization.ipynb                          # Jupyter Notebook for visualization
+│-- 📂 src/                                             # Source code directory
+│   ├── 📂 examples/                                    # Sample images for testing (DATASET)
+│   │   ├── 🖼️ eg1.jpg  
+│   │   ├── 🖼️ eg2.jpg  
+│   │   ├── 🖼️ eg3.jpg  
+│   │   ├── 🖼️ eg4.jpg  
+│   │   ├── 🖼️ eg5.jpg  
+│   ├── 📂 models/                            
+│   │   ├── 📄 model_loader.py                          # Model loading script  
+│   ├── 📂 scripts/                                     # Core functionalities  
+│   │   ├── 📄 culture_scores.py                        # Cultural score calculations  
+│   │   ├── 📄 disambiguation.py                        # Lemma matching logic  
+│   │   ├── 📄 fetch_wikipedia.py                       # Wikipedia data retrieval  
+│   │   ├── 📄 retrieval.py                             # Entity retrieval
+│   ├── 📂 outputs/                                     # Outputs from running the pipeline (main)
+│   │   ├── 📄 {DATASET}_bids_match.pkl                 # Entity matching results
+│   │   ├── 📄 caire_{DATASET}_lemma_match.pkl          # Lemma matching results
+│   │   ├── 📄 caire_{DATASET}_wiki.pkl                 # Wikipedia-based retrieval results
+│   │   │── 📄 {DATASET}_image_embeddings.pkl           # Image embeddings
+│   │   │── 📄 1-5_{DATASET}_VLM_qwen.pkl               # Final 1-5 scores
+│   ├── 📄 config.py                                    # Configuration settings  
+│   ├── 📄 main_VEL.py                                  # VEL
+│   ├── 📄 main_culture.py                              # Cultural Relevance Scoring
+│   ├── 📄 run_pipeline.sh                              # Bash script  
+│   ├── 📄 utils.py                          
+│
+│-- 📂 checkpoints/                                     # Model checkpoints
+│   ├── 📄 sentencepiece.model                
+│   ├── 📄 webli_i18n_so400m_16_256_78061115.npz
+│
+│-- 📂 data/                                            # KB Metadata
+│   ├── 📄 babelnet_source_dict.pkl                     # Wikipedia entities from BabelNet
+│   ├── 📄 combined_lemma_embeds.pkl                    # Precomputed lemma embeddings
+│   ├── 📂 faiss_index_merged/                          # FAISS index for retrieval
+│   ├── 📄 index_infos_merged.json                      # Metadata corresponding to retrieval
+│   ├── 📄 country_list.pkl                             # List of 10 populous, diverse countries
+│
+│-- 📂 big_vision/                                      # Cloned repository, helper functions to run mSigLIP
+│
+│-- 📄 README.md                              
+│-- 📄 setup.py                                         # Installation script  
+│-- 📄 environment.yaml                                 # Conda environment file
+
+```  
