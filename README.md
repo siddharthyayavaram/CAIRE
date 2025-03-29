@@ -184,7 +184,9 @@ After running `src/main.py`, the following files will be created in `src/outputs
 ---
 ## Final Directory Structure  
 
-```
+<details>
+  <summary>Click to expand</summary>
+  ```
 📂 CAIRE/                                              
 │-- 📂 assets/                                
 │-- 📂 eval/                                            # Evaluation-related files
@@ -232,4 +234,6 @@ After running `src/main.py`, the following files will be created in `src/outputs
 │-- 📄 setup.py                                         # Installation script  
 │-- 📄 environment.yaml                                 # Conda environment file
 
-```  
+``` 
+</details>
+ 
