@@ -186,7 +186,7 @@ After running `src/main.py`, the following files will be created in `src/outputs
 
 <details>
   <summary>Click to expand</summary>
-  ```
+  ```bash
     📂 CAIRE/                                              
     │-- 📂 assets/                                
     │-- 📂 eval/                                            # Evaluation-related files
