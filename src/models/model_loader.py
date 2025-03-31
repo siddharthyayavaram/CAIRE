@@ -5,21 +5,36 @@ from transformers import (
     LlavaNextForConditionalGeneration
 )
 
+def is_flash_attn_compatible():
+    if not torch.cuda.is_available():
+        return False
+    
+    try:
+        import flash_attn # type: ignore
+        flash_available = True
+    except ImportError:
+        flash_available = False
+    
+    major = torch.cuda.get_device_properties(0).major
+    return major >= 8 and flash_available # ampere, hopper gpus
+
+USE_FLASH_ATTENTION = is_flash_attn_compatible()
+
 MODEL_CONFIGS = {
     "qwen_vl": {
         "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
         "model_class": Qwen2_5_VLForConditionalGeneration,
-        "extra_kwargs": {"attn_implementation": "flash_attention_2"}
+        "extra_kwargs": {"attn_implementation": "flash_attention_2"} if USE_FLASH_ATTENTION else {}
     },
     "llama_vl": {
         "model_id": "meta-llama/Llama-3.2-11B-Vision-Instruct",
         "model_class": MllamaForConditionalGeneration,
-        "extra_kwargs": {"attn_implementation": "sdpa"}
+        "extra_kwargs": {"attn_implementation": "sdpa"}  # SDPA is more widely supported
     },
     "pangea_vl": {
         "model_id": "neulab/Pangea-7B-hf",
         "model_class": LlavaNextForConditionalGeneration,
-        "extra_kwargs": {"attn_implementation": "flash_attention_2"}
+        "extra_kwargs": {"attn_implementation": "flash_attention_2"} if USE_FLASH_ATTENTION else {}
     }
 }
 
