@@ -21,6 +21,7 @@ def is_flash_attn_compatible():
 
 USE_FLASH_ATTENTION = is_flash_attn_compatible()
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logging.info(f"Using Flash attention: {USE_FLASH_ATTENTION}")
 
 MODEL_CONFIGS = {
@@ -41,23 +42,23 @@ MODEL_CONFIGS = {
     }
 }
 
-MODEL_CONFIGS = {
-    "qwen_vl": {
-        "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
-        "model_class": Qwen2_5_VLForConditionalGeneration,
-        "extra_kwargs": {"attn_implementation": "flash_attention_2"}
-    },
-    "llama_vl": {
-        "model_id": "meta-llama/Llama-3.2-11B-Vision-Instruct",
-        "model_class": MllamaForConditionalGeneration,
-        "extra_kwargs": {"attn_implementation": "sdpa"}
-    },
-    "pangea_vl": {
-        "model_id": "neulab/Pangea-7B-hf",
-        "model_class": LlavaNextForConditionalGeneration,
-        "extra_kwargs": {"attn_implementation": "flash_attention_2"}
-    }
-}
+# MODEL_CONFIGS = {
+#     "qwen_vl": {
+#         "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+#         "model_class": Qwen2_5_VLForConditionalGeneration,
+#         "extra_kwargs": {"attn_implementation": "flash_attention_2"}
+#     },
+#     "llama_vl": {
+#         "model_id": "meta-llama/Llama-3.2-11B-Vision-Instruct",
+#         "model_class": MllamaForConditionalGeneration,
+#         "extra_kwargs": {"attn_implementation": "sdpa"}
+#     },
+#     "pangea_vl": {
+#         "model_id": "neulab/Pangea-7B-hf",
+#         "model_class": LlavaNextForConditionalGeneration,
+#         "extra_kwargs": {"attn_implementation": "flash_attention_2"}
+#     }
+# }
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
