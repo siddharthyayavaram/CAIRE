@@ -174,6 +174,7 @@ setup(
         "wrapt",
         "zipp", 
         "gsutil",
+        "tabulate",
         "flaxformer @ git+https://github.com/google/flaxformer.git",
         "panopticapi @ git+https://github.com/akolesnikoff/panopticapi.git",
         "clu @ git+https://github.com/google/CommonLoopUtils.git"
