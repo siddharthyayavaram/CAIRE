@@ -29,7 +29,7 @@ On a manually curated dataset of culturally salient but rare items built using l
 #### Step 1: Clone the Repository
 
 ```sh
-git clone https://github.com/<>/CAIRE
+git clone https://github.com/siddharthyayavaram/CAIRE.git
 cd CAIRE
 ```
 
