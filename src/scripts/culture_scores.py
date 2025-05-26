@@ -1,18 +1,15 @@
 from PIL import Image
 import torch
-import jax
 import pickle
 from src.utils import get_image_paths, save_pickle
 from tqdm import tqdm
 from pathlib import Path
 from src.config import OUTPUT_PATH, PROMPT_TEMPLATE
 from src.models.model_loader import load_model
+import os
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 def qwen_vl_scores(bp, dataset, target_list):
-
-    jax.device_put(None, jax.devices("gpu")[0])
-    torch.cuda.empty_cache()
-    # torch.cuda.memory_allocated(), torch.cuda.memory_reserved()
 
     model, processor, device = load_model('qwen_vl')
 

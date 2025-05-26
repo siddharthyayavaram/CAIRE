@@ -1,54 +1,21 @@
 import os
 import json
-import sys
 import pickle
 import logging
 import faiss
-import ml_collections  # type: ignore
-import tensorflow as tf
-import absl.logging
-
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.append(os.path.join(BASE_DIR, "big_vision"))
-
-import big_vision.models.proj.image_text.two_towers as model_mod  # type: ignore
-import big_vision.pp.builder as pp_builder  # type: ignore
-import big_vision.pp.ops_image # type: ignore
-import big_vision.pp.ops_text # type: ignore
+from transformers import AutoProcessor, AutoModel
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-logging.getLogger("absl").setLevel(logging.ERROR)
-logging.getLogger("orbax").setLevel(logging.ERROR)
-logging.getLogger("jax").setLevel(logging.ERROR)
-tf.get_logger().setLevel("ERROR")
-absl.logging.set_verbosity(absl.logging.FATAL)
 
-def load_model(variant, res, ckpt_path, seqlen, sent_path):
+def load_model():
     try:
-        if variant.endswith('-i18n'):
-            variant = variant[:-len('-i18n')]
-
-        model_cfg = ml_collections.ConfigDict()
-        model_cfg.image_model = 'vit'
-        model_cfg.text_model = 'proj.image_text.text_transformer'
-        model_cfg.image = dict(variant=variant, pool_type='map')
-        model_cfg.text = dict(variant=variant.split('/')[0], vocab_size=250_000)
-        model_cfg.out_dim = (None, None)
-        model_cfg.bias_init = -10.0
-        model_cfg.temperature_init = 10.0
-
-        model = model_mod.Model(**model_cfg)
-        init_params = None
-        params = model_mod.load(init_params, str(ckpt_path), model_cfg)
-
-        pp_img = pp_builder.get_preprocess_fn(f'resize({res})|value_range(-1, 1)')
-        pp_txt = pp_builder.get_preprocess_fn(f'tokenize(max_len={seqlen}, model="{str(sent_path)}", eos="sticky", pad_value=1, inkey="text")')
-
-        return model, params, pp_img, pp_txt
-
+        model = AutoModel.from_pretrained("google/siglip-so400m-patch16-256-i18n")
+        processor = AutoProcessor.from_pretrained("google/siglip-so400m-patch16-256-i18n")
+        return model, processor
+    
     except Exception as e:
         logging.error(f"Failed to load model: {e}", exc_info=True)
-        return None, None, None, None
+        return None, None
 
 def get_image_paths(folder, extensions=("jpg", "jpeg", "png", "gif")):
     image_files = []

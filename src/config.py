@@ -14,12 +14,6 @@ BABELNET_WIKI = 'babelnet_source_dict.pkl'
 RETRIEVAL_BATCH_SIZE = 64
 NUMBER_RETRIEVED_IMAGES = 20
 
-VARIANT = 'So400m/16-i18n'
-RES = 256
-SEQLEN = 64
-CKPT_PATH = Path("checkpoints") / "webli_i18n_so400m_16_256_78061115.npz"  # model ckpt path
-SENTENCE_PIECE_PATH = Path("checkpoints") / "sentencepiece.model"
-
 MAX_WIKI_DOCS = 3
 
 PROMPT_TEMPLATE = '''We want to assess how relevant an image is to a given culture. 

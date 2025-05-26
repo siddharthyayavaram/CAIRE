@@ -9,7 +9,6 @@ from transformers import (
 def is_flash_attn_compatible():
     if not torch.cuda.is_available():
         return False
-    
     try:
         import flash_attn # type: ignore
         flash_available = True
@@ -41,24 +40,6 @@ MODEL_CONFIGS = {
         "extra_kwargs": {"attn_implementation": "flash_attention_2"} if USE_FLASH_ATTENTION else {}
     }
 }
-
-# MODEL_CONFIGS = {
-#     "qwen_vl": {
-#         "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
-#         "model_class": Qwen2_5_VLForConditionalGeneration,
-#         "extra_kwargs": {"attn_implementation": "flash_attention_2"}
-#     },
-#     "llama_vl": {
-#         "model_id": "meta-llama/Llama-3.2-11B-Vision-Instruct",
-#         "model_class": MllamaForConditionalGeneration,
-#         "extra_kwargs": {"attn_implementation": "sdpa"}
-#     },
-#     "pangea_vl": {
-#         "model_id": "neulab/Pangea-7B-hf",
-#         "model_class": LlavaNextForConditionalGeneration,
-#         "extra_kwargs": {"attn_implementation": "flash_attention_2"}
-#     }
-# }
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

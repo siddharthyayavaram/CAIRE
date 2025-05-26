@@ -7,9 +7,11 @@ from pathlib import Path
 from src.utils import get_image_paths, load_faiss_index, load_index_info, save_pickle
 from src.config import RETRIEVAL_BATCH_SIZE, NUMBER_RETRIEVED_IMAGES, DATA_PATH, OUTPUT_PATH, INDEX_INFOS, FAISS_INDICES
 
-ImageFile.LOAD_TRUNCATED_IMAGES = True
+ImageFile.LOAD_TRUNCATED_IMAGES = True 
 
-def process_images(bp, dataset, model, params, pp_img):
+def process_images(bp, dataset, model, processor):
+
+    model.to('cuda')
 
     index_info_path = Path(DATA_PATH) / INDEX_INFOS
     faiss_index_path = Path(DATA_PATH) / FAISS_INDICES
@@ -20,7 +22,7 @@ def process_images(bp, dataset, model, params, pp_img):
     folder_path = Path(bp) / dataset
     image_paths = sorted(get_image_paths(folder_path))
 
-    batch_size = RETRIEVAL_BATCH_SIZE
+    batch_size = RETRIEVAL_BATCH_SIZE   
     retrieval_count = NUMBER_RETRIEVED_IMAGES  # Number of entities to retrieve
     bids = []
     image_embeddings = {}
@@ -29,18 +31,19 @@ def process_images(bp, dataset, model, params, pp_img):
         batch_paths = image_paths[i:i + batch_size]
 
         try:
-            # Load and preprocess images
             images = [Image.open(filename).convert("RGB") for filename in batch_paths]
-            imgs = np.array([pp_img({"image": np.array(image)})["image"] for image in images])
 
-            # Generate embeddings
-            zimg, _, _ = model.apply({"params": params}, imgs, None)
-            zimg = np.array(zimg)
+            inputs = processor(images=images, return_tensors="pt")
+            inputs = {k: v.to("cuda") for k, v in inputs.items()}
+
+            with torch.no_grad():
+                raw = model.vision_model(**inputs).pooler_output
+                zimg = torch.nn.functional.normalize(raw, dim=-1)
+
+            zimg = zimg.cpu().numpy()
 
             # FAISS search
             distances, indices = ind.search(zimg, retrieval_count)
-
-            # Store results
             for j, filename in enumerate(batch_paths):
                 image_embeddings[filename] = zimg[j]
                 nearest_neighbors = [
@@ -48,7 +51,7 @@ def process_images(bp, dataset, model, params, pp_img):
                 ]
                 bids.append(nearest_neighbors)
 
-            del images, imgs, zimg, distances, indices
+            del images, zimg, distances, indices
 
             if i % (batch_size * 10) == 0:
                 torch.cuda.empty_cache()

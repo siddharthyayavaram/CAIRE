@@ -15,10 +15,10 @@ def run_pipeline():
 
     try:
         logging.info("Initializing model...")
-        model, params, pp_img, _ = load_model(VARIANT, RES, CKPT_PATH, SEQLEN, SENTENCE_PIECE_PATH)
+        model, processor = load_model()
 
         logging.info("Processing images...")
-        process_images(BP, DATASET, model, params, pp_img)
+        process_images(BP, DATASET, model, processor)
 
         logging.info("Performing lemma matching...")
         lemma_match(BP, DATASET)
