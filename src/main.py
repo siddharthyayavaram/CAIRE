@@ -44,7 +44,7 @@ def run_pipeline(args):
 
         logging.info("Scoring completed successfully.")
 
-        logging.info(f"1-5 output path: {Path(OUTPUT_PATH) / f'1-5_{args.timestamp}_VLM_qwen.pkl'}")
+        logging.info(f"Output Scores: {Path(OUTPUT_PATH) / f'1-5_{args.timestamp}_VLM_qwen.pkl'}")
 
     except Exception:
         logging.error("ERROR: ", exc_info=True)
