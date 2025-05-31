@@ -40,7 +40,7 @@ def run_pipeline(args):
         logging.info("Starting cultural relevance scoring...")
 
         scores = qwen_vl_scores(args)
-        logging.info(scores)
+        # logging.info(scores)
 
         logging.info("Scoring completed successfully.")
 
