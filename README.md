@@ -90,12 +90,12 @@ python setup.py download_assets
 
 #### **1. Configuration (`config.py`)**
 
-* DEFAULT\_DATASET: Fallback image folder (`src/examples/`).
-* DATA\_PATH / OUTPUT\_PATH: Root folders for data files (`.pkl`, indices) and outputs.
-* PREDEFINED\_TARGET\_LISTS: Paths to pickled lists (countries, states, religions) stored under `data/`.
-* INDEX\_INFOS, FAISS\_INDICES, LEMMA\_EMBEDS, BABELNET\_WIKI: Retrieval/index artifacts.
-* RETRIEVAL\_BATCH\_SIZE, NUMBER\_RETRIEVED\_IMAGES, MAX\_WIKI\_DOCS: controls batch sizes and number of retrieved items.
-* PROMPT\_TEMPLATE: Prompt for culture scoring.
+* `DEFAULT_DATASET`: Fallback image folder (`src/examples/`).
+* `DATA_PATH` / `OUTPUT_PATH`: Root folders for data files (`.pkl`, indices) and outputs.
+* `PREDEFINED_TARGET_LISTS`: Paths to pickled lists (countries, states, religions) stored under `data/`.
+* `INDEX_INFOS`, `FAISS_INDICES`, `LEMMA_EMBEDS`, `BABELNET_WIKI`: Retrieval/index artifacts.
+* `RETRIEVAL_BATCH_SIZE`, `NUMBER_RETRIEVED_IMAGES`, `MAX_WIKI_DOCS`: controls batch sizes and number of retrieved items.
+* `PROMPT_TEMPLATE`: Prompt for culture scoring.
 
 #### **2. Entry Point (`main.py`)**
 
