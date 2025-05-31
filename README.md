@@ -163,7 +163,7 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
 For every run, check `run_log.csv` (in the same folder) to find which timestamp corresponds to which input parameters.
 
-<div style="font-size: 0.9em">
+<div style="font-size: 0.6em">
   
 | timestamp       | image_input_type | num_images | image_paths        | targets               |
 |-----------------|------------------|------------|--------------------|-----------------------|
