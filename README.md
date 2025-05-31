@@ -64,15 +64,17 @@ pip install flash-attn --no-build-isolation
 
 #### **2. Additional Setup Functionality**
 
-- **Creates necessary directories**: Ensures the existence of required folders (`data/`, and `src/outputs/`).
-- **Downloads dataset files (~31GB)**: Fetches preprocessed datasets and lookup files, storing them in `data/`.
-- **Downloads predefined target culture lists into `data/`**:
+- Creates necessary directories: Ensures the existence of required folders (`data/`, and `src/outputs/`).
+- Downloads dataset files (~31GB): Fetches preprocessed datasets and lookup files, storing them in `data/`.
+- Downloads predefined target culture lists into `data/`:
 
     - `country_list.pkl`: A list of 177 countries
-    - `top10_countries.pkl`: Top 10 countries (`['Brazil','China','Egypt','Germany','India','Indonesia','Mexico','Nigeria','Russia','United States of America']`) selected based on annotator availability (population) and cultural diversity
+    - `top10_countries.pkl`: 10 countries selected based on annotator availability (population) and cultural diversity
+    - - (['Brazil','China','Egypt','Germany','India','Indonesia','Mexico','Nigeria','Russia','United States of America'])
     - `indian_states.pkl`: A list of 28 Indian states, excluding Union Territories
     - `USA_states.pkl`: U.S. states
-    - `common_religions.pkl`: Religions with the highest global population representation (`['Christianity', 'Islam', 'Hinduism', 'Buddhism', 'Sikhism', 'Judaism', 'Atheism', 'Agnosticism']`)
+    - `common_religions.pkl`: Religions with the highest global population representation 
+    - - (['Christianity', 'Islam', 'Hinduism', 'Buddhism', 'Sikhism', 'Judaism', 'Atheism', 'Agnosticism'])
 
 #### Command
 
