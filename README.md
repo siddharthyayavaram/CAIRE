@@ -103,6 +103,8 @@ python setup.py download_assets
 * `RETRIEVAL_BATCH_SIZE`, `NUMBER_RETRIEVED_IMAGES`, `MAX_WIKI_DOCS`: Retrieval Parameters.
 * `PROMPT_TEMPLATE`: Prompt for culture scoring.
 
+---
+
 #### **2. Entry Point (`main.py`)**
 
 ```sh
@@ -131,6 +133,10 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
   * If a folder is passed, CAIRE processes all images inside.
   * If omitted, CAIRE defaults to the example folder in `config.DEFAULT_DATASET` (`src/examples/`).
 
+---
+
+#### **3. Logging CAIRE Runs (`main.py`)**
+
 * `args.timestamp`
 
    * Automatically set to the current timestamp (format: `YYYYMMDD_HHMMSS`, e.g., `20250531_143210`).
@@ -151,7 +157,7 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
 ---
 
-#### **3. Output Files & Naming Conventions**
+#### **4. Output Files & Naming Conventions**
 
 `src/outputs/` contains intermediate and final output files:
 
@@ -173,10 +179,10 @@ The file will have the following structure:
 
 ---
 
-#### **4. Examples**
+#### **5. Examples**
 
 1. Default image folder and target list
-   (uses `data/top10_countries.pkl` and `config.DEFAULT_DATASET`.):
+   (uses `data/top10_countries.pkl` and `config.DEFAULT_DATASET`):
 
    ```sh
    python -m src.main
@@ -192,7 +198,7 @@ The file will have the following structure:
 
    ```sh
    python -m src.main --target_list "CultureA,CultureB,CultureC" \
-                      --image_paths image_folder/img1.jpg image_folder/img2.png
+                      --image_paths image_folder/img1.jpg image_folder/img2.jpg
    ```
 
 4. Using a custom `.pkl` target list you added under `data/`
@@ -209,6 +215,7 @@ The file will have the following structure:
 `eval/visualization.ipynb` shows the 1-5 scores and matched Wikipedia pages for the example images with default CAIRE arguments (`data/top10_countries.pkl` and `config.DEFAULT_DATASET`).
 
 ---
+
 ### Storage Requirements  
 
 > [!IMPORTANT]
