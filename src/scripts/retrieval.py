@@ -4,12 +4,12 @@ from tqdm import tqdm
 from PIL import Image, ImageFile
 import torch
 from pathlib import Path
-from src.utils import get_image_paths, load_faiss_index, load_index_info, save_pickle
+from src.utils import load_faiss_index, load_index_info, save_pickle
 from src.config import RETRIEVAL_BATCH_SIZE, NUMBER_RETRIEVED_IMAGES, DATA_PATH, OUTPUT_PATH, INDEX_INFOS, FAISS_INDICES
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True 
 
-def process_images(bp, dataset, model, processor):
+def process_images(args, model, processor):
 
     model.to('cuda')
 
@@ -19,8 +19,7 @@ def process_images(bp, dataset, model, processor):
     urls, ids = load_index_info(index_info_path)
     ind = load_faiss_index(faiss_index_path)
 
-    folder_path = Path(bp) / dataset
-    image_paths = sorted(get_image_paths(folder_path))
+    image_paths = sorted(args.image_paths)
 
     batch_size = RETRIEVAL_BATCH_SIZE   
     retrieval_count = NUMBER_RETRIEVED_IMAGES  # Number of entities to retrieve
@@ -59,6 +58,6 @@ def process_images(bp, dataset, model, processor):
         except Exception as e:
             logging.error(f"Error processing batch {i // batch_size}: {e}", exc_info=True)
 
-    save_pickle(Path(OUTPUT_PATH) / f"{dataset}_bids_match.pkl", bids, "Bids match data")
-    save_pickle(Path(OUTPUT_PATH) / f"{dataset}_image_embeddings.pkl", image_embeddings, "Image embeddings")
+    save_pickle(Path(OUTPUT_PATH) / f"{args.timestamp}_bids_match.pkl", bids, "Bids match data")
+    save_pickle(Path(OUTPUT_PATH) / f"{args.timestamp}_image_embeddings.pkl", image_embeddings, "Image embeddings")
 

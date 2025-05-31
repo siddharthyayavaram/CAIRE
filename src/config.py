@@ -1,10 +1,16 @@
 from pathlib import Path
 
-BP = Path("src")
-DATASET = 'examples'  # Dataset name
+DEFAULT_DATASET = Path("src") / "examples"
 DATA_PATH = Path("data")
 OUTPUT_PATH = Path("src") / "outputs"
-TARGET_LIST = Path(DATA_PATH) / "country_list.pkl"
+
+PREDEFINED_TARGET_LISTS = [
+    DATA_PATH / "country_list.pkl",         
+    DATA_PATH / "top10_countries.pkl",      
+    DATA_PATH / "indian_states.pkl",        
+    DATA_PATH / "USA_states.pkl",           
+    DATA_PATH / "common_religions.pkl",     
+]
 
 INDEX_INFOS = "index_infos_merged.json"
 FAISS_INDICES = "faiss_index_merged"

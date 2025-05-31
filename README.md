@@ -37,7 +37,7 @@ The setup process performs the following tasks:
 
 #### **1. Setting Up the Environment**  
 
-1. Create a virtual environment and activate it:  
+1. Create a virtual environment:  
    ```sh
    python -m venv caire
    source caire/bin/activate
@@ -64,10 +64,17 @@ pip install flash-attn --no-build-isolation
 
 #### **2. Additional Setup Functionality**
 
-- **Creates necessary directories**: Ensures the existence of required folders (data/, and src/outputs/).
-- **Downloads dataset files (~31GB)**: Fetches preprocessed datasets and lookup files, storing them in data/.
+- **Creates necessary directories**: Ensures the existence of required folders (`data/`, and `src/outputs/`).
+- **Downloads dataset files (~31GB)**: Fetches preprocessed datasets and lookup files, storing them in `data/`.
+- **Downloads predefined target culture lists into `data/`**:
 
-#### Downloading Assets and Data
+    - `country_list.pkl`: A list of 177 countries
+    - `top10_countries.pkl`: Top 10 countries (`['Brazil','China','Egypt','Germany','India','Indonesia','Mexico','Nigeria','Russia','United States of America']`) selected based on annotator availability (population) and cultural diversity
+    - `indian_states.pkl`: A list of 28 Indian states, excluding Union Territories
+    - `USA_states.pkl`: U.S. states
+    - `common_religions.pkl`: Religions with the highest global population representation (`['Christianity', 'Islam', 'Hinduism', 'Buddhism', 'Sikhism', 'Judaism', 'Atheism', 'Agnosticism']`)
+
+#### Command
 
 ```sh
 python setup.py download_assets
@@ -75,67 +82,120 @@ python setup.py download_assets
 
 ---
 
-## **Usage**  
+## **Usage**
 
-### **Running CAIRE**  
+### **Running CAIRE (CLI)**
 
-- CAIRE processes datasets stored as folders of images. 
-- An example dataset with five images is provided in `src/examples`.  
-- The dataset name and various configurations are specified in `src/config.py`, including the base path (`BP`) and important parameters for retrieval and model processing.  
+### **1. Configuration (`config.py`)**
 
-### **Configuration Details (`config.py`)**  
+* **DEFAULT\_DATASET**: Fallback image folder (`src/examples/`).
+* **DATA\_PATH** / **OUTPUT\_PATH**: Root folders for data files (`.pkl`, indices) and outputs.
+* **PREDEFINED\_TARGET\_LISTS**: Paths to pickled lists (countries, states, religions) stored under `data/`.
+* **INDEX\_INFOS**, **FAISS\_INDICES**, **LEMMA\_EMBEDS**, **BABELNET\_WIKI**: Retrieval/index artifacts.
+* **RETRIEVAL\_BATCH\_SIZE**, **NUMBER\_RETRIEVED\_IMAGES**, **MAX\_WIKI\_DOCS**: controls batch sizes and number of retrieved items.
+* **PROMPT\_TEMPLATE**: Prompt for culture scoring.
 
-- **Paths**  
-  - `BP`, `DATA_PATH`, and `OUTPUT_PATH` define the locations for input data and outputs.  
-
-- **Retrieval & Indexing**  
-  - `INDEX_INFOS`, `FAISS_INDICES`, and `LEMMA_EMBEDS` are paths used for image and text retrieval metadata.  
-  - `BABELNET_WIKI` stores Wikipedia sources of the BabelNet entities.  
-  - `RETRIEVAL_BATCH_SIZE` controls the batch size for retrieval.  
-
-- **Wikipedia Retrieval**  
-  - `MAX_WIKI_DOCS` limits the number of Wikipedia documents retrieved per query image.  
-
-- **Culture scoring**  
-  - `PROMPT_TEMPLATE`
-  - `TARGET_LIST` is the list of possible culture labels 
-
-### **Running the Pipeline**  
-
-This pipeline is split into two stages.
-The first script processes images and retrieves relevant data, while the second computes cultural relevance scores.  
-
-#### **Option 1: Running the Scripts Manually**  
+### **2. Entry Point**
 
 ```sh
-python -m src.main_VEL      # Visual Entity Linking
-python -m src.main_culture  # Cultural relevance scoring
-```  
+python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
+```
 
-#### **Option 2: Running with a Shell Script**  
+* **`--target_list`**
 
-```sh
-chmod +x src/run_pipeline.sh  
-./src/run_pipeline.sh         
-```  
+  * Default: `top10_countries.pkl` (located under `data/`).
+  * If you input an existing `*.pkl` in `data/`, CAIRE treats it as a predefined list.
+  * To use custom labels, wrap a comma-separated string in quotes, e.g.
 
-Processed images and outputs will be saved in `src/outputs`.
+    ```sh
+    --target_list "CultureA,CultureB,CultureC"
+    ```
+
+  You can add your own `.pkl` files to the `data/` folder, but to use them as predefined target lists, you must also add their paths to `cfg.PREDEFINED_TARGET_LISTS` in `config.py`.
+
+* **`--image_paths`**
+
+  * Must be either:
+
+    * A **single folder path** (e.g., `data/image_folder`)
+    * A **space-separated list of image file paths** (e.g., `img1.jpg img2.jpg img3.jpg`)
+
+  * If a folder is passed, CAIRE processes all images inside.
+  * If omitted, CAIRE defaults to the example folder in `cfg.DEFAULT_DATASET` (`src/examples/`).
+
+* **`args.timestamp`**
+
+   * Automatically set to the current timestamp (format: `YYYYMMDD_HHMMSS`, e.g., `20250531_143210`).
+   * Used to append a unique prefix to all intermediate and final output files.
+
+* **`log_run_metadata(args)`**
+
+   * Appends a row to `src/outputs/run_log.csv` for every run, containing:
+
+     * `timestamp` (e.g., `20250531_143210`)
+     * `image_input_type` (`folder` or `list`)
+     * `num_images` (integer)
+     * `image_paths` (folder name or space-separated file paths)
+     * `targets` (predefined target_list filename or comma-separated custom labels)
+
+
+   All outputs are written under `src/outputs/`, with filenames prefixed by the timestamp.
 
 ---
 
-### **Output Files**  
+### **3. Output Files & Naming Conventions**
 
-After running `src/main.py`, the following files will be created in `src/outputs/`:  
+`src/outputs/` conatins intermediate and final output files:
 
-- **`{DATASET}_bids_match.pkl`** – Entity matching results  
-- **`caire_{DATASET}_lemma_match.pkl`** – Lemma-based matching results  
-- **`caire_{DATASET}_wiki.pkl`** – Wikipedia-based retrieval results  
-- **`{DATASET}_image_embeddings.pkl`** – Image embeddings  
-- **`1-5_{DATASET}_VLM_qwen.pkl`** – Final 1-5 scoring results  
+* **`<TIMESTAMP>_bids_match.pkl`**: Entity matching results (BabelNet ID matching).
+* **`<TIMESTAMP>_lemma_match.pkl`**: Lemma-based disambiguation.
+* **`<TIMESTAMP>_wiki.pkl`**: Retrieved Wikipedia Pages.
+* **`<TIMESTAMP>_image_embeddings.pkl`**: Image embeddings.
+* **`1-5_<TIMESTAMP>_VLM_qwen.pkl`**: Final 1–5 scoring results (Using `Qwen2.5-VL-7B-Instruct`).
+
+For every run, check `run_log.csv` (in the same folder) to find which timestamp corresponds to which input parameters. If you want to inspect intermediate results for a given run, search by its timestamp:
+
+```csv
+timestamp,image_input_type,num_images,image_paths,targets
+20250531_143210,folder,125,examples,top10_countries.pkl
+20250531_150005,list,20,/path/img1.jpg /path/img2.jpg /…,"CultureA,CultureB"
+```
+---
+
+### **4. Examples**
+
+1. **Default image folder and culture list**
+   (uses `data/top10_countries.pkl` and `cfg.DEFAULT_DATASET`):
+
+   ```sh
+   python -m src.main
+   ```
+
+2. **Specify a predefined target list (`indian_states.pkl`) and a folder of images**
+
+   ```sh
+   python -m src.main --target_list indian_states.pkl --image_paths image_folder
+   ```
+
+3. **Pass individual image files manually and a custom list of culture labels**
+
+   ```sh
+   python -m src.main --target_list "CultureA,CultureB,CultureC" \
+                      --image_paths image_folder/img1.jpg image_folder/img2.png image_folder/img3.jpeg
+   ```
+
+4. **Using a custom `.pkl` target list you added under `data/`**
+   Suppose you created `data/my_custom_labels.pkl`. Then call:
+
+   ```sh
+   python -m src.main --target_list my_custom_labels.pkl --image_paths image_folder
+   ```
+
+---
 
 ### **Visualization**  
 
-`eval/visualization.ipynb` shows the 1-5 scores and matched Wikipedia pages for the example images.
+`eval/visualization.ipynb` shows the 1-5 scores and matched Wikipedia pages for the example images with default CAIRE parameters.
 
 ---
 ## Storage Requirements  

@@ -1,7 +1,7 @@
 from PIL import Image
 import torch
 import pickle
-from src.utils import get_image_paths, save_pickle
+from src.utils import save_pickle
 from tqdm import tqdm
 from pathlib import Path
 from src.config import OUTPUT_PATH, PROMPT_TEMPLATE
@@ -9,18 +9,16 @@ from src.models.model_loader import load_model
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-def qwen_vl_scores(bp, dataset, target_list):
+def qwen_vl_scores(args):
 
     model, processor, device = load_model('qwen_vl')
 
-    with open(Path(OUTPUT_PATH) / f'caire_{dataset}_WIKI.pkl', 'rb') as f:
+    with open(Path(OUTPUT_PATH) / f'{args.timestamp}_WIKI.pkl', 'rb') as f:
         x = pickle.load(f)
 
-    folder_path = Path(bp) / dataset
-    image_paths = sorted(get_image_paths(folder_path))
+    image_paths = sorted(args.image_paths)
 
-    with open(target_list, 'rb') as f:
-        targets = pickle.load(f)
+    targets = args.target_list
 
     OUTPUTS = []
 
@@ -60,4 +58,6 @@ def qwen_vl_scores(bp, dataset, target_list):
         prompt_scores = {i[0]: i[1].index(max(i[1])) + 1 for i in a}
         SCORES.append({'image_path': image_paths[n], 'values': prompt_scores})
 
-    save_pickle(Path(OUTPUT_PATH) / f'1-5_{dataset}_VLM_qwen.pkl', SCORES, "1-5 scores")
+    save_pickle(Path(OUTPUT_PATH) / f'1-5_{args.timestamp}_VLM_qwen.pkl', SCORES, "1-5 scores")
+
+    return SCORES

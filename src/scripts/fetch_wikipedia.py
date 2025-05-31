@@ -88,11 +88,11 @@ def process_group_bids(group_bids, babelnet_dict, max_docs):
 
     return group_pages
 
-def wiki_ret(dataset, max_docs=20):
+def wiki_retrieval(args, max_docs=20):
     with open(Path(DATA_PATH) / BABELNET_WIKI, 'rb') as f:
         babelnet_dict = pickle.load(f)
 
-    with open(Path(OUTPUT_PATH) / f'caire_{dataset}_lemma_match.pkl', 'rb') as f:   
+    with open(Path(OUTPUT_PATH) / f'{args.timestamp}_lemma_match.pkl', 'rb') as f:   
         y = pickle.load(f)
 
     all_bids = [[j['bid'] for j in i] for i in y[:]]
@@ -106,4 +106,4 @@ def wiki_ret(dataset, max_docs=20):
         for f in tqdm(futures):
             outputs.append(f.result())
 
-    save_pickle(Path(OUTPUT_PATH) / f'caire_{dataset}_WIKI.pkl', outputs, "Wikipedia content")
+    save_pickle(Path(OUTPUT_PATH) / f'{args.timestamp}_WIKI.pkl', outputs, "Wikipedia content")

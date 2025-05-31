@@ -28,9 +28,13 @@ class DownloadAssetsCommand(Command):
             "combined_lemma_embeds.pkl",
             "faiss_index_merged",
             "index_infos_merged.json",
-            "country_list.pkl"
+            "country_list.pkl",
+            "top10_countries.pkl",
+            "indian_states.pkl",
+            "USA_states.pkl",
+            "common_religions.pkl"
         ]
-
+    
         GCLOUD = "image-cultural-evaluation"
 
         for file in files_to_download:
