@@ -162,7 +162,7 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 * `bids_match.pkl`: Entity matching results (BabelNet ID matching).
 * `lemma_match.pkl`: Lemma-based disambiguation.
 * `WIKI.pkl`: Retrieved Wikipedia Pages.
-* `image_embeddings.pkl`: Image embeddings.
+* `image_embeddings.pkl`: mSigLIP image embeddings.
 * `1-5_scores_VLM_qwen.pkl`: Final 1–5 scoring results (Using `Qwen2.5-VL-7B-Instruct`).
 
 For every run, check `run_log.csv` (in `src/outputs`) to match timestamp & input parameters.
