@@ -69,12 +69,12 @@ pip install flash-attn --no-build-isolation
 - Downloads predefined target culture lists into `data/`:
 
     - `country_list.pkl`: A list of 177 countries
-    - `top10_countries.pkl`: 10 countries selected based on annotator availability (population) and cultural diversity
+    - `top10_countries.pkl`: 10 countries selected based on annotator availability (population) and diversity
     <!-- - - `Brazil, China, Egypt, Germany, India, Indonesia, Mexico, Nigeria, Russia, United States of America` -->
      ```sh
      ["Brazil", "China", "Egypt", "Germany", "India", "Indonesia", "Mexico", "Nigeria", "Russia", "United States of America"]
      ```
-    - `indian_states.pkl`: A list of 28 Indian states, excluding Union Territories
+    - `indian_states.pkl`: 28 Indian states, excluding Union Territories
     - `USA_states.pkl`: U.S. states
     - `common_religions.pkl`: Religions with the highest global population representation 
     <!-- - - `Christianity, Islam, Hinduism, Buddhism, Sikhism, Judaism, Atheism, Agnosticism` -->
@@ -82,7 +82,7 @@ pip install flash-attn --no-build-isolation
     ["Christianity", "Islam", "Hinduism", "Buddhism", "Sikhism", "Judaism", "Atheism", "Agnosticism"]
     ```
 
-#### Command
+#### Command to download assets and create folders
 
 ```sh
 python setup.py download_assets
@@ -97,10 +97,10 @@ python setup.py download_assets
 #### **1. Configuration (`config.py`)**
 
 * `DEFAULT_DATASET`: Fallback image folder (`src/examples/`).
-* `DATA_PATH` / `OUTPUT_PATH`: Root folders for data files (`.pkl`, indices) and outputs.
-* `PREDEFINED_TARGET_LISTS`: Paths to pickled lists (countries, states, religions) stored under `data/`.
-* `INDEX_INFOS`, `FAISS_INDICES`, `LEMMA_EMBEDS`, `BABELNET_WIKI`: Retrieval/index artifacts.
-* `RETRIEVAL_BATCH_SIZE`, `NUMBER_RETRIEVED_IMAGES`, `MAX_WIKI_DOCS`: batch sizes and number of retrieved items.
+* `DATA_PATH` , `OUTPUT_PATH`: Root folders for data files (`.pkl`, indices) and outputs.
+* `PREDEFINED_TARGET_LISTS`: Paths to predefined target lists stored under `data/`.
+* `INDEX_INFOS`, `FAISS_INDICES`, `LEMMA_EMBEDS`, `BABELNET_WIKI`: Retrieval/Index metadata.
+* `RETRIEVAL_BATCH_SIZE`, `NUMBER_RETRIEVED_IMAGES`, `MAX_WIKI_DOCS`: Retrieval Parameters.
 * `PROMPT_TEMPLATE`: Prompt for culture scoring.
 
 #### **2. Entry Point (`main.py`)**
@@ -112,14 +112,14 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 * `--target_list`
 
   * Default: `top10_countries.pkl` (located under `data/`).
-  * If you input an existing `*.pkl` in `data/`, CAIRE treats it as a predefined list. e.g `indian_states.pkl`
-  * To use custom labels, wrap a comma-separated string in quotes, e.g.
+  * If you input a`*.pkl` file that exists in `data/`, CAIRE treats it as a predefined list. e.g `indian_states.pkl`
+  * To use custom labels, wrap a comma-separated string in quotes
 
     ```sh
     --target_list "CultureA,CultureB,CultureC"
     ```
 
-  You can add your own `.pkl` files to the `data/` folder, but to use them as predefined target lists, you must also add their paths to `PREDEFINED_TARGET_LISTS` in `config.py`.
+  You can set your own `.pkl` files, but to use them as predefined target lists, you must also add their paths to `PREDEFINED_TARGET_LISTS` in `config.py`.
 
 * `--image_paths`
 
@@ -142,7 +142,7 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
      * `timestamp` (e.g., `20250531_143210`)
      * `image_input_type` (`folder` or `list`)
-     * `num_images` (integer)
+     * `num_images`
      * `image_paths` (folder name or space-separated file paths)
      * `targets` (predefined target_list filename or comma-separated custom labels)
 
@@ -157,12 +157,13 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
 * `<TIMESTAMP>_bids_match.pkl`: Entity matching results (BabelNet ID matching).
 * `<TIMESTAMP>_lemma_match.pkl`: Lemma-based disambiguation.
-* `<TIMESTAMP>_wiki.pkl`: Retrieved Wikipedia Pages.
+* `<TIMESTAMP>_WIKI.pkl`: Retrieved Wikipedia Pages.
 * `<TIMESTAMP>_image_embeddings.pkl`: Image embeddings.
 * `1-5_<TIMESTAMP>_VLM_qwen.pkl`: Final 1–5 scoring results (Using `Qwen2.5-VL-7B-Instruct`).
 
-For every run, check `run_log.csv` (in the same folder) to find which timestamp corresponds to which input parameters.
+For every run, check `run_log.csv` (in `src/outputs`) to match timestamp & input parameters.
 
+The file will have the following structure:
 ```  
 | timestamp       | image_input_type | num_images | image_paths        | targets               |
 |-----------------|------------------|------------|--------------------|-----------------------|
@@ -175,7 +176,7 @@ For every run, check `run_log.csv` (in the same folder) to find which timestamp 
 #### **4. Examples**
 
 1. Default image folder and target list
-   (uses `data/top10_countries.pkl` and `config.DEFAULT_DATASET` (`src/examples/`).):
+   (uses `data/top10_countries.pkl` and `config.DEFAULT_DATASET`.):
 
    ```sh
    python -m src.main
@@ -195,7 +196,7 @@ For every run, check `run_log.csv` (in the same folder) to find which timestamp 
    ```
 
 4. Using a custom `.pkl` target list you added under `data/`
-   Suppose you created `data/custom_targets.pkl`. Then call:
+   Suppose you created `data/custom_targets.pkl`.
 
    ```sh
    python -m src.main --target_list custom_targets.pkl --image_paths image_folder
@@ -205,7 +206,7 @@ For every run, check `run_log.csv` (in the same folder) to find which timestamp 
 
 ### Visualization  
 
-`eval/visualization.ipynb` shows the 1-5 scores and matched Wikipedia pages for the example images with default CAIRE parameters.
+`eval/visualization.ipynb` shows the 1-5 scores and matched Wikipedia pages for the example images with default CAIRE arguments (`data/top10_countries.pkl` and `config.DEFAULT_DATASET`).
 
 ---
 ### Storage Requirements  
