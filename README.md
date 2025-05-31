@@ -70,11 +70,11 @@ pip install flash-attn --no-build-isolation
 
     - `country_list.pkl`: A list of 177 countries
     - `top10_countries.pkl`: 10 countries selected based on annotator availability (population) and cultural diversity
-    - - (['Brazil','China','Egypt','Germany','India','Indonesia','Mexico','Nigeria','Russia','United States of America'])
+    - - `Brazil, China, Egypt, Germany, India, Indonesia, Mexico, Nigeria, Russia, United States of America`
     - `indian_states.pkl`: A list of 28 Indian states, excluding Union Territories
     - `USA_states.pkl`: U.S. states
     - `common_religions.pkl`: Religions with the highest global population representation 
-    - - (['Christianity', 'Islam', 'Hinduism', 'Buddhism', 'Sikhism', 'Judaism', 'Atheism', 'Agnosticism'])
+    - - `Christianity, Islam, Hinduism, Buddhism, Sikhism, Judaism, Atheism, Agnosticism`
 
 #### Command
 
@@ -88,25 +88,25 @@ python setup.py download_assets
 
 ### **Running CAIRE (CLI)**
 
-### **1. Configuration (`config.py`)**
+#### **1. Configuration (`config.py`)**
 
-* **DEFAULT\_DATASET**: Fallback image folder (`src/examples/`).
-* **DATA\_PATH** / **OUTPUT\_PATH**: Root folders for data files (`.pkl`, indices) and outputs.
-* **PREDEFINED\_TARGET\_LISTS**: Paths to pickled lists (countries, states, religions) stored under `data/`.
-* **INDEX\_INFOS**, **FAISS\_INDICES**, **LEMMA\_EMBEDS**, **BABELNET\_WIKI**: Retrieval/index artifacts.
-* **RETRIEVAL\_BATCH\_SIZE**, **NUMBER\_RETRIEVED\_IMAGES**, **MAX\_WIKI\_DOCS**: controls batch sizes and number of retrieved items.
-* **PROMPT\_TEMPLATE**: Prompt for culture scoring.
+* DEFAULT\_DATASET: Fallback image folder (`src/examples/`).
+* DATA\_PATH / OUTPUT\_PATH: Root folders for data files (`.pkl`, indices) and outputs.
+* PREDEFINED\_TARGET\_LISTS: Paths to pickled lists (countries, states, religions) stored under `data/`.
+* INDEX\_INFOS, FAISS\_INDICES, LEMMA\_EMBEDS, BABELNET\_WIKI: Retrieval/index artifacts.
+* RETRIEVAL\_BATCH\_SIZE, NUMBER\_RETRIEVED\_IMAGES, MAX\_WIKI\_DOCS: controls batch sizes and number of retrieved items.
+* PROMPT\_TEMPLATE: Prompt for culture scoring.
 
-### **2. Entry Point**
+#### **2. Entry Point (`main.py`)**
 
 ```sh
 python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 ```
 
-* **`--target_list`**
+* `--target_list`
 
   * Default: `top10_countries.pkl` (located under `data/`).
-  * If you input an existing `*.pkl` in `data/`, CAIRE treats it as a predefined list.
+  * If you input an existing `*.pkl` in `data/`, CAIRE treats it as a predefined list. e.g `indian_states.pkl`
   * To use custom labels, wrap a comma-separated string in quotes, e.g.
 
     ```sh
@@ -115,22 +115,22 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
   You can add your own `.pkl` files to the `data/` folder, but to use them as predefined target lists, you must also add their paths to `cfg.PREDEFINED_TARGET_LISTS` in `config.py`.
 
-* **`--image_paths`**
+* `--image_paths`
 
   * Must be either:
 
-    * A **single folder path** (e.g., `data/image_folder`)
-    * A **space-separated list of image file paths** (e.g., `img1.jpg img2.jpg img3.jpg`)
+    * A single folder path (e.g., `data/image_folder`)
+    * A space-separated list of image file paths (e.g., `img1.jpg img2.jpg img3.jpg`)
 
   * If a folder is passed, CAIRE processes all images inside.
   * If omitted, CAIRE defaults to the example folder in `cfg.DEFAULT_DATASET` (`src/examples/`).
 
-* **`args.timestamp`**
+* `args.timestamp`
 
    * Automatically set to the current timestamp (format: `YYYYMMDD_HHMMSS`, e.g., `20250531_143210`).
    * Used to append a unique prefix to all intermediate and final output files.
 
-* **`log_run_metadata(args)`**
+* `log_run_metadata(args)`
 
    * Appends a row to `src/outputs/run_log.csv` for every run, containing:
 
@@ -145,62 +145,62 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
 ---
 
-### **3. Output Files & Naming Conventions**
+#### **3. Output Files & Naming Conventions**
 
-`src/outputs/` conatins intermediate and final output files:
+`src/outputs/` contains intermediate and final output files:
 
-* **`<TIMESTAMP>_bids_match.pkl`**: Entity matching results (BabelNet ID matching).
-* **`<TIMESTAMP>_lemma_match.pkl`**: Lemma-based disambiguation.
-* **`<TIMESTAMP>_wiki.pkl`**: Retrieved Wikipedia Pages.
-* **`<TIMESTAMP>_image_embeddings.pkl`**: Image embeddings.
-* **`1-5_<TIMESTAMP>_VLM_qwen.pkl`**: Final 1–5 scoring results (Using `Qwen2.5-VL-7B-Instruct`).
+* `<TIMESTAMP>_bids_match.pkl`: Entity matching results (BabelNet ID matching).
+* `<TIMESTAMP>_lemma_match.pkl`: Lemma-based disambiguation.
+* `<TIMESTAMP>_wiki.pkl`: Retrieved Wikipedia Pages.
+* `<TIMESTAMP>_image_embeddings.pkl`: Image embeddings.
+* `1-5_<TIMESTAMP>_VLM_qwen.pkl`: Final 1–5 scoring results (Using `Qwen2.5-VL-7B-Instruct`).
 
-For every run, check `run_log.csv` (in the same folder) to find which timestamp corresponds to which input parameters. If you want to inspect intermediate results for a given run, search by its timestamp:
+For every run, check `run_log.csv` (in the same folder) to find which timestamp corresponds to which input parameters.
 
-```csv
-timestamp,image_input_type,num_images,image_paths,targets
-20250531_143210,folder,125,examples,top10_countries.pkl
-20250531_150005,list,20,/path/img1.jpg /path/img2.jpg /…,"CultureA,CultureB"
-```
+| timestamp       | image_input_type | num_images | image_paths        | targets               |
+|-----------------|------------------|------------|--------------------|-----------------------|
+| 20250531_143210 | folder           | 125        | examples           | top10_countries.pkl   |
+| 20250531_150005 | list             | 20         | /path/img1.jpg …   | "CultureA,CultureB"   |
+
 ---
 
-### **4. Examples**
+#### **4. Examples**
 
-1. **Default image folder and culture list**
-   (uses `data/top10_countries.pkl` and `cfg.DEFAULT_DATASET`):
+1. Default image folder and target list
+   (uses `data/top10_countries.pkl` and `cfg.DEFAULT_DATASET` (`src/examples/`).):
 
    ```sh
    python -m src.main
    ```
 
-2. **Specify a predefined target list (`indian_states.pkl`) and a folder of images**
+2. Specify a predefined target list (`indian_states.pkl`) and a folder of images
 
    ```sh
    python -m src.main --target_list indian_states.pkl --image_paths image_folder
    ```
 
-3. **Pass individual image files manually and a custom list of culture labels**
+3. Pass individual image files manually and a custom target list
 
    ```sh
    python -m src.main --target_list "CultureA,CultureB,CultureC" \
                       --image_paths image_folder/img1.jpg image_folder/img2.png image_folder/img3.jpeg
    ```
 
-4. **Using a custom `.pkl` target list you added under `data/`**
-   Suppose you created `data/my_custom_labels.pkl`. Then call:
+4. Using a custom `.pkl` target list you added under `data/`
+   Suppose you created `data/custom_targets.pkl`. Then call:
 
    ```sh
-   python -m src.main --target_list my_custom_labels.pkl --image_paths image_folder
+   python -m src.main --target_list custom_targets.pkl --image_paths image_folder
    ```
 
 ---
 
-### **Visualization**  
+### Visualization  
 
 `eval/visualization.ipynb` shows the 1-5 scores and matched Wikipedia pages for the example images with default CAIRE parameters.
 
 ---
-## Storage Requirements  
+### Storage Requirements  
 
 > [!IMPORTANT]
 > Ensure you have sufficient disk space before proceeding:
