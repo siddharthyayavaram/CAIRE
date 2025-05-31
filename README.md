@@ -19,7 +19,7 @@ On a manually curated dataset of culturally salient but rare items built using l
 
 ---
 
-## Installation and Setup
+## I. Installation and Setup
 
 **Prerequisites:**  
 - Python version 3.9 or later.
@@ -88,7 +88,7 @@ python setup.py download_assets
 
 ---
 
-## **Usage**
+## II. Usage
 
 ### **Running CAIRE (CLI)**
 
