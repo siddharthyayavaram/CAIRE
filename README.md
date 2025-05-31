@@ -163,14 +163,12 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
 For every run, check `run_log.csv` (in the same folder) to find which timestamp corresponds to which input parameters.
 
-<div style="font-size: 0.6em">
-  
+```  
 | timestamp       | image_input_type | num_images | image_paths        | targets               |
 |-----------------|------------------|------------|--------------------|-----------------------|
 | 20250531_143210 | folder           | 125        | examples           | top10_countries.pkl   |
 | 20250531_150005 | list             | 20         | /path/img1.jpg …   | "CultureA,CultureB"   |
-
-</div>
+```
 
 ---
 
