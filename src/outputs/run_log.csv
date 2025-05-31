@@ -1,0 +1,2 @@
+timestamp,image_input_type,num_images,image_paths,targets
+20250531_143210,folder,5,examples,top10_countries.pkl
