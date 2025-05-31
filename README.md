@@ -70,11 +70,17 @@ pip install flash-attn --no-build-isolation
 
     - `country_list.pkl`: A list of 177 countries
     - `top10_countries.pkl`: 10 countries selected based on annotator availability (population) and cultural diversity
-    - - `Brazil, China, Egypt, Germany, India, Indonesia, Mexico, Nigeria, Russia, United States of America`
+    <!-- - - `Brazil, China, Egypt, Germany, India, Indonesia, Mexico, Nigeria, Russia, United States of America` -->
+     ```sh
+     ["Brazil", "China", "Egypt", "Germany", "India", "Indonesia", "Mexico", "Nigeria", "Russia", "United States of America"]
+     ```
     - `indian_states.pkl`: A list of 28 Indian states, excluding Union Territories
     - `USA_states.pkl`: U.S. states
     - `common_religions.pkl`: Religions with the highest global population representation 
-    - - `Christianity, Islam, Hinduism, Buddhism, Sikhism, Judaism, Atheism, Agnosticism`
+    <!-- - - `Christianity, Islam, Hinduism, Buddhism, Sikhism, Judaism, Atheism, Agnosticism` -->
+    ```sh
+    ["Christianity", "Islam", "Hinduism", "Buddhism", "Sikhism", "Judaism", "Atheism", "Agnosticism"]
+    ```
 
 #### Command
 
@@ -94,7 +100,7 @@ python setup.py download_assets
 * `DATA_PATH` / `OUTPUT_PATH`: Root folders for data files (`.pkl`, indices) and outputs.
 * `PREDEFINED_TARGET_LISTS`: Paths to pickled lists (countries, states, religions) stored under `data/`.
 * `INDEX_INFOS`, `FAISS_INDICES`, `LEMMA_EMBEDS`, `BABELNET_WIKI`: Retrieval/index artifacts.
-* `RETRIEVAL_BATCH_SIZE`, `NUMBER_RETRIEVED_IMAGES`, `MAX_WIKI_DOCS`: controls batch sizes and number of retrieved items.
+* `RETRIEVAL_BATCH_SIZE`, `NUMBER_RETRIEVED_IMAGES`, `MAX_WIKI_DOCS`: batch sizes and number of retrieved items.
 * `PROMPT_TEMPLATE`: Prompt for culture scoring.
 
 #### **2. Entry Point (`main.py`)**
@@ -113,7 +119,7 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
     --target_list "CultureA,CultureB,CultureC"
     ```
 
-  You can add your own `.pkl` files to the `data/` folder, but to use them as predefined target lists, you must also add their paths to `cfg.PREDEFINED_TARGET_LISTS` in `config.py`.
+  You can add your own `.pkl` files to the `data/` folder, but to use them as predefined target lists, you must also add their paths to `PREDEFINED_TARGET_LISTS` in `config.py`.
 
 * `--image_paths`
 
@@ -123,7 +129,7 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
     * A space-separated list of image file paths (e.g., `img1.jpg img2.jpg img3.jpg`)
 
   * If a folder is passed, CAIRE processes all images inside.
-  * If omitted, CAIRE defaults to the example folder in `cfg.DEFAULT_DATASET` (`src/examples/`).
+  * If omitted, CAIRE defaults to the example folder in `config.DEFAULT_DATASET` (`src/examples/`).
 
 * `args.timestamp`
 
@@ -157,17 +163,21 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
 For every run, check `run_log.csv` (in the same folder) to find which timestamp corresponds to which input parameters.
 
+<div style="font-size: 1em">
+  
 | timestamp       | image_input_type | num_images | image_paths        | targets               |
 |-----------------|------------------|------------|--------------------|-----------------------|
 | 20250531_143210 | folder           | 125        | examples           | top10_countries.pkl   |
 | 20250531_150005 | list             | 20         | /path/img1.jpg …   | "CultureA,CultureB"   |
+
+</div>
 
 ---
 
 #### **4. Examples**
 
 1. Default image folder and target list
-   (uses `data/top10_countries.pkl` and `cfg.DEFAULT_DATASET` (`src/examples/`).):
+   (uses `data/top10_countries.pkl` and `config.DEFAULT_DATASET` (`src/examples/`).):
 
    ```sh
    python -m src.main
@@ -183,7 +193,7 @@ For every run, check `run_log.csv` (in the same folder) to find which timestamp 
 
    ```sh
    python -m src.main --target_list "CultureA,CultureB,CultureC" \
-                      --image_paths image_folder/img1.jpg image_folder/img2.png image_folder/img3.jpeg
+                      --image_paths image_folder/img1.jpg image_folder/img2.png
    ```
 
 4. Using a custom `.pkl` target list you added under `data/`
