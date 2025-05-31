@@ -13,7 +13,7 @@ def qwen_vl_scores(args):
 
     model, processor, device = load_model('qwen_vl')
 
-    with open(Path(OUTPUT_PATH) / f'{args.timestamp}_WIKI.pkl', 'rb') as f:
+    with open(Path(OUTPUT_PATH) / f"{args.timestamp}" / "WIKI.pkl", 'rb') as f:
         x = pickle.load(f)
 
     image_paths = sorted(args.image_paths)
@@ -58,6 +58,6 @@ def qwen_vl_scores(args):
         prompt_scores = {i[0]: i[1].index(max(i[1])) + 1 for i in a}
         SCORES.append({'image_path': image_paths[n], 'values': prompt_scores})
 
-    save_pickle(Path(OUTPUT_PATH) / f'1-5_{args.timestamp}_VLM_qwen.pkl', SCORES, "1-5 scores")
+    save_pickle(Path(OUTPUT_PATH) / f'{args.timestamp}' / '1-5_scores_VLM_qwen.pkl', SCORES, "1-5 scores")
 
     return SCORES

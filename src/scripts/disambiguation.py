@@ -11,10 +11,10 @@ def lemma_match(args):
 
     image_paths = sorted(args.image_paths)
 
-    with open(Path(OUTPUT_PATH) / f"{args.timestamp}_image_embeddings.pkl", "rb") as f:
+    with open(Path(OUTPUT_PATH) / f"{args.timestamp}" / "image_embeddings.pkl", "rb") as f:
         image_embeddings = pickle.load(f)
 
-    with open(Path(OUTPUT_PATH) / f"{args.timestamp}_bids_match.pkl", "rb") as f:
+    with open(Path(OUTPUT_PATH) / f"{args.timestamp}" / "bids_match.pkl", "rb") as f:
         bids_match = pickle.load(f)
 
     with open(Path(DATA_PATH) / LEMMA_EMBEDS, "rb") as f:
@@ -66,7 +66,7 @@ def lemma_match(args):
             logging.error(f"Error for image {image_paths[i]}: {e}", exc_info=True)
 
     save_pickle(
-        Path(OUTPUT_PATH) / f"{args.timestamp}_lemma_match.pkl",
+        Path(OUTPUT_PATH) / f"{args.timestamp}" / "lemma_match.pkl",
         LEMMA_RESULTS,
         "Lemma matching results"
     )

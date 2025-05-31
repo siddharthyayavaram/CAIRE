@@ -70,14 +70,12 @@ pip install flash-attn --no-build-isolation
 
     - `country_list.pkl`: A list of 177 countries
     - `top10_countries.pkl`: 10 countries selected based on annotator availability (population) and diversity
-    <!-- - - `Brazil, China, Egypt, Germany, India, Indonesia, Mexico, Nigeria, Russia, United States of America` -->
      ```sh
      ["Brazil", "China", "Egypt", "Germany", "India", "Indonesia", "Mexico", "Nigeria", "Russia", "United States of America"]
      ```
     - `indian_states.pkl`: 28 Indian states, excluding Union Territories
     - `USA_states.pkl`: U.S. states
     - `common_religions.pkl`: Religions with the highest global population representation 
-    <!-- - - `Christianity, Islam, Hinduism, Buddhism, Sikhism, Judaism, Atheism, Agnosticism` -->
     ```sh
     ["Christianity", "Islam", "Hinduism", "Buddhism", "Sikhism", "Judaism", "Atheism", "Agnosticism"]
     ```
@@ -139,8 +137,8 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 
 * `args.timestamp`
 
-   * Automatically set to the current timestamp (format: `YYYYMMDD_HHMMSS`, e.g., `20250531_143210`).
-   * Used to append a unique prefix to all intermediate and final output files.
+  * Automatically set to the current timestamp (format: `YYYYMMDD_HHMMSS`, e.g., `20250531_143210`).
+  * Used to create a unique subfolder for storing all intermediate and final output files.
 
 * `log_run_metadata(args)`
 
@@ -153,19 +151,19 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
      * `targets` (predefined target_list filename or comma-separated custom labels)
 
 
-   All outputs are written under `src/outputs/`, with filenames prefixed by the timestamp.
+   All outputs are written under `src/outputs/`, with subfolders identified by timestamps.
 
 ---
 
 #### **4. Output Files & Naming Conventions**
 
-`src/outputs/` contains intermediate and final output files:
+`src/outputs/<TIMESTAMP>` contains intermediate and final output files:
 
-* `<TIMESTAMP>_bids_match.pkl`: Entity matching results (BabelNet ID matching).
-* `<TIMESTAMP>_lemma_match.pkl`: Lemma-based disambiguation.
-* `<TIMESTAMP>_WIKI.pkl`: Retrieved Wikipedia Pages.
-* `<TIMESTAMP>_image_embeddings.pkl`: Image embeddings.
-* `1-5_<TIMESTAMP>_VLM_qwen.pkl`: Final 1–5 scoring results (Using `Qwen2.5-VL-7B-Instruct`).
+* `bids_match.pkl`: Entity matching results (BabelNet ID matching).
+* `lemma_match.pkl`: Lemma-based disambiguation.
+* `WIKI.pkl`: Retrieved Wikipedia Pages.
+* `image_embeddings.pkl`: Image embeddings.
+* `1-5_scores_VLM_qwen.pkl`: Final 1–5 scoring results (Using `Qwen2.5-VL-7B-Instruct`).
 
 For every run, check `run_log.csv` (in `src/outputs`) to match timestamp & input parameters.
 

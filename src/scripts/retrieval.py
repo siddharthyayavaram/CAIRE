@@ -58,6 +58,5 @@ def process_images(args, model, processor):
         except Exception as e:
             logging.error(f"Error processing batch {i // batch_size}: {e}", exc_info=True)
 
-    save_pickle(Path(OUTPUT_PATH) / f"{args.timestamp}_bids_match.pkl", bids, "Bids match data")
-    save_pickle(Path(OUTPUT_PATH) / f"{args.timestamp}_image_embeddings.pkl", image_embeddings, "Image embeddings")
-
+    save_pickle(Path(OUTPUT_PATH) / f"{args.timestamp}" / "bids_match.pkl", bids, "Bids match data")
+    save_pickle(Path(OUTPUT_PATH) / f"{args.timestamp}" / "image_embeddings.pkl", image_embeddings, "Image embeddings")

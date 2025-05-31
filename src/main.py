@@ -40,11 +40,11 @@ def run_pipeline(args):
         logging.info("Starting cultural relevance scoring...")
 
         scores = qwen_vl_scores(args)
-        # logging.info(scores)
+        logging.info(scores)
 
         logging.info("Scoring completed successfully.")
 
-        logging.info(f"Output Scores: {Path(OUTPUT_PATH) / f'1-5_{args.timestamp}_VLM_qwen.pkl'}")
+        logging.info(f"Output Scores: {Path(OUTPUT_PATH) / f'{args.timestamp}' / '1-5_scores_VLM_qwen.pkl'}")
 
     except Exception:
         logging.error("ERROR: ", exc_info=True)
@@ -54,6 +54,11 @@ if __name__ == "__main__":
     args = parse_args()
     args.target_list, args.is_predefined_list = resolve_target_list(args.target_list)
     args.image_paths, args.is_folder = resolve_image_paths(args)
-    args.timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    run_folder = Path(OUTPUT_PATH) / timestamp
+    run_folder.mkdir(parents=True, exist_ok=True)
+
+    args.timestamp = timestamp
     log_run_metadata(args) 
     run_pipeline(args)
