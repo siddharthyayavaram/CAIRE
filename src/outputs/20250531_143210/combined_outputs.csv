@@ -1,0 +1,6 @@
+Image_Path,Matched Entity,Wikipedia Link,Scores
+src/examples/eg1.jpg,Tangara_(genus),https://en.wikipedia.org/wiki/Tangara_%28genus%29,"{'Brazil': 4, 'China': 1, 'Egypt': 1, 'Germany': 1, 'India': 1, 'Indonesia': 1, 'Mexico': 3, 'Nigeria': 1, 'Russia': 1, 'United States of America': 2}"
+src/examples/eg2.jpg,South_American_jaguar,https://en.wikipedia.org/wiki/South_American_jaguar,"{'Brazil': 4, 'China': 1, 'Egypt': 1, 'Germany': 1, 'India': 1, 'Indonesia': 1, 'Mexico': 4, 'Nigeria': 2, 'Russia': 1, 'United States of America': 3}"
+src/examples/eg3.jpg,Feijoada (Brazilian dish),https://en.wikipedia.org/wiki/Feijoada%20%28Brazilian%20dish%29,"{'Brazil': 5, 'China': 1, 'Egypt': 1, 'Germany': 1, 'India': 1, 'Indonesia': 1, 'Mexico': 1, 'Nigeria': 3, 'Russia': 1, 'United States of America': 2}"
+src/examples/eg4.jpg,"Jama_Masjid,_Delhi",https://en.wikipedia.org/wiki/Jama_Masjid%2C_Delhi,"{'Brazil': 1, 'China': 1, 'Egypt': 1, 'Germany': 1, 'India': 5, 'Indonesia': 1, 'Mexico': 1, 'Nigeria': 2, 'Russia': 1, 'United States of America': 1}"
+src/examples/eg5.jpg,jabuticaba,https://en.wikipedia.org/wiki/jabuticaba,"{'Brazil': 4, 'China': 1, 'Egypt': 1, 'Germany': 1, 'India': 1, 'Indonesia': 1, 'Mexico': 1, 'Nigeria': 1, 'Russia': 1, 'United States of America': 2}"

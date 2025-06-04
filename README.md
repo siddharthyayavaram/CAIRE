@@ -164,6 +164,7 @@ python -m src.main --target_list <TARGET_LIST> --image_paths <IMAGE_PATHS>
 * `WIKI.pkl`: Retrieved Wikipedia Pages.
 * `image_embeddings.pkl`: mSigLIP image embeddings.
 * `1-5_scores_VLM_qwen.pkl`: Final 1–5 scoring results (Using `Qwen2.5-VL-7B-Instruct`).
+* `combined_outputs.csv`: Final CSV containing `image_path`, Matched Entity, corresponding Wikipedia link, and 1-5 Scores.
 
 For every run, check `run_log.csv` (in `src/outputs`) to match timestamp & input parameters.
 

@@ -9,7 +9,7 @@ from src.scripts.retrieval import process_images
 from src.scripts.disambiguation import lemma_match
 from src.scripts.fetch_wikipedia import wiki_retrieval
 from src.scripts.culture_scores import qwen_vl_scores
-from src.utils import load_model, parse_args, resolve_image_paths, resolve_target_list, log_run_metadata
+from src.utils import load_model, parse_args, resolve_image_paths, resolve_target_list, log_run_metadata, save_readable
 from src.config import MAX_WIKI_DOCS, OUTPUT_PATH
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -17,11 +17,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 def run_pipeline(args):
 
     try:
-        # print(args)
-
         logging.info(f"Timestamp: {args.timestamp}")
-
-        logging.info("Starting VEL...")
 
         logging.info("Initializing model...")
         model, processor = load_model()
@@ -35,16 +31,8 @@ def run_pipeline(args):
         logging.info("Fetching Wikipedia data...")
         wiki_retrieval(args, MAX_WIKI_DOCS)
 
-        logging.info("VEL completed successfully.")
-
-        logging.info("Starting cultural relevance scoring...")
-
-        scores = qwen_vl_scores(args)
-        # logging.info(scores)
-
-        logging.info("Scoring completed successfully.")
-
-        logging.info(f"Output Scores: {Path(OUTPUT_PATH) / f'{args.timestamp}' / '1-5_scores_VLM_qwen.pkl'}")
+        logging.info("1-5 Scoring...")
+        qwen_vl_scores(args)
 
     except Exception:
         logging.error("ERROR: ", exc_info=True)
@@ -62,3 +50,5 @@ if __name__ == "__main__":
     args.timestamp = timestamp
     log_run_metadata(args) 
     run_pipeline(args)
+    save_readable(args, OUTPUT_PATH)
+    logging.info(f"Outputs: {Path(OUTPUT_PATH) / f'{args.timestamp}' / 'combined_outputs.csv'}")

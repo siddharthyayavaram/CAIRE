@@ -57,7 +57,5 @@ def qwen_vl_scores(args):
     for n, a in enumerate(OUTPUTS):
         prompt_scores = {i[0]: i[1].index(max(i[1])) + 1 for i in a}
         SCORES.append({'image_path': image_paths[n], 'values': prompt_scores})
-
+    
     save_pickle(Path(OUTPUT_PATH) / f'{args.timestamp}' / '1-5_scores_VLM_qwen.pkl', SCORES, "1-5 scores")
-
-    return SCORES

@@ -5,6 +5,7 @@ import faiss
 import pickle
 import logging
 import argparse
+import urllib.parse
 from pathlib import Path
 from src import config as cfg
 from transformers import AutoProcessor, AutoModel
@@ -70,12 +71,12 @@ def parse_args():
     )
     return parser.parse_args()
 
-def resolve_target_list(arg):
-    path = cfg.DATA_PATH / arg[0]
-    if len(arg) == 1 and path in cfg.PREDEFINED_TARGET_LISTS:
+def resolve_target_list(args):
+    path = cfg.DATA_PATH / args[0]
+    if len(args) == 1 and path in cfg.PREDEFINED_TARGET_LISTS:
         with open(path, "rb") as f:
-            return pickle.load(f), arg[0]
-    return arg, False
+            return pickle.load(f), args[0]
+    return args, False
 
 def resolve_image_paths(args):
     if args.image_paths:
@@ -116,3 +117,27 @@ def log_run_metadata(args, log_file="run_log.csv"):
         if write_header:
             writer.writeheader()
         writer.writerow(row)
+
+def save_readable(args, OUTPUT_PATH, output_file = 'combined_outputs.csv'):
+    wiki_path = Path(OUTPUT_PATH) / f"{args.timestamp}" / "WIKI.pkl"
+    scores_path = Path(OUTPUT_PATH) / f"{args.timestamp}" / "1-5_scores_VLM_qwen.pkl"
+    image_paths = args.image_paths
+
+    csv_path = Path(cfg.OUTPUT_PATH) / f"{args.timestamp}" / output_file
+
+    with open(wiki_path, 'rb') as f:
+        wiki_data = pickle.load(f)
+
+    with open(scores_path, 'rb') as f:
+        scores_data = pickle.load(f)
+
+    base_wiki_link = "https://en.wikipedia.org/wiki/"
+
+    with open(csv_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["Image_Path", "Matched Entity", "Wikipedia Link", "Scores"])
+        for idx, img_path in enumerate(image_paths):
+            title = wiki_data[idx][0]['title']
+            encoded_title = urllib.parse.quote(title)
+            wiki_link = f"{base_wiki_link}{encoded_title}"
+            writer.writerow([str(img_path), title, wiki_link, str(scores_data[idx]['values'])])
