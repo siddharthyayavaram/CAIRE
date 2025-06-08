@@ -96,14 +96,14 @@ def wiki_retrieval(args, max_docs=20):
         y = pickle.load(f)
 
     all_bids = [[j['bid'] for j in i] for i in y[:]]
-    
-    outputs = []
+
+    def process(bid_group):
+        return process_group_bids(bid_group, babelnet_dict, max_docs)
+
     with ThreadPoolExecutor(max_workers=16) as executor:
-        futures = [
-            executor.submit(process_group_bids, group_bids, babelnet_dict, max_docs)
-            for group_bids in all_bids
-        ]
-        for f in tqdm(futures):
-            outputs.append(f.result())
+        outputs = list(tqdm(
+            executor.map(process, all_bids),
+            total=len(all_bids)
+        ))
 
     save_pickle(Path(OUTPUT_PATH) / f"{args.timestamp}" / "WIKI.pkl", outputs, "Wikipedia content")
