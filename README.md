@@ -223,8 +223,6 @@ The file will have the following structure:
 
 ## Citation
 
-## Citation
-
 ```bibtex
 @misc{yayavaram2025caireculturalattributionimages,
       title={CAIRe: Cultural Attribution of Images by Retrieval-Augmented Evaluation}, 
