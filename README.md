@@ -220,3 +220,20 @@ The file will have the following structure:
 > [!IMPORTANT]
 > Ensure you have sufficient disk space before proceeding:
 - data/ requires **~31GB**
+
+## Citation
+
+## Citation
+
+```bibtex
+@misc{yayavaram2025caireculturalattributionimages,
+      title={CAIRe: Cultural Attribution of Images by Retrieval-Augmented Evaluation}, 
+      author={Arnav Yayavaram and Siddharth Yayavaram and Simran Khanuja and Michael Saxon and Graham Neubig},
+      year={2025},
+      eprint={2506.09109},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2506.09109}, 
+}
+```
+
