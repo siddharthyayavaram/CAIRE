@@ -12,6 +12,8 @@
 
 </div>
 
+This is the official implementation of the paper [*CAIRe: Cultural Attribution of Images by Retrieval-Augmented Evaluation*](https://arxiv.org/abs/2506.09109) by Arnav Yayavaram, Siddharth Yayavaram, Simran Khanuja, Michael Saxon and Graham Neubig
+
 ## Abstract
 
 As text-to-image models become increasingly prevalent, ensuring their equitable performance across diverse cultural contexts is critical. 
