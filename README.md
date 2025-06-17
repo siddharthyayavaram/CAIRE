@@ -8,6 +8,8 @@
   <img src="assets/fig2_caire.jpg" width="100%">
 </p>  
 
+[![arXiv](https://img.shields.io/badge/cs.CV-arxiv%3A2506.09109-red)](https://arxiv.org/abs/2506.09109)
+
 </div>
 
 ## Abstract
