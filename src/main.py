@@ -4,6 +4,10 @@ from datetime import datetime
 from pathlib import Path
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+# Set HuggingFace token for accessing gated models (e.g., Llama)
+os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
+if not os.environ["HF_TOKEN"]:
+    raise ValueError("HF_TOKEN not found in environment variables. Please make sure it's set in your bashrc and the environment is sourced.")
 
 from src.scripts.retrieval import process_images
 from src.scripts.disambiguation import lemma_match
@@ -31,8 +35,8 @@ def run_pipeline(args):
         logging.info("Fetching Wikipedia data...")
         wiki_retrieval(args, MAX_WIKI_DOCS)
 
-        logging.info("1-5 Scoring...")
-        qwen_vl_scores(args)
+        logging.info(f"1-5 Scoring with {args.model_name}...")
+        qwen_vl_scores(args, model_name=args.model_name)
 
     except Exception:
         logging.error("ERROR: ", exc_info=True)

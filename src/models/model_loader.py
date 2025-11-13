@@ -1,7 +1,8 @@
 import torch
 import logging
 from transformers import (
-    Qwen2_5_VLForConditionalGeneration, AutoProcessor,
+    AutoProcessor,
+    Qwen2_5_VLForConditionalGeneration,
     MllamaForConditionalGeneration,
     LlavaNextForConditionalGeneration
 )
@@ -36,9 +37,15 @@ MODEL_CONFIGS = {
     },
     "pangea_vl": {
         "model_id": "neulab/Pangea-7B-hf",
-        "model_class": LlavaNextForConditionalGeneration,
+        "model_class": LlavaNextForConditionalGeneration,  # Per official docs
         "extra_kwargs": {"attn_implementation": "flash_attention_2"} if USE_FLASH_ATTENTION else {}
-    }
+    },
+    # NOTE: CulturalPangea requires custom llava library loader, not supported via transformers yet
+    # "cultural_pangea": {
+    #     "model_id": "neulab/CulturalPangea-7B",
+    #     "model_class": LlavaNextForConditionalGeneration,
+    #     "extra_kwargs": {"attn_implementation": "flash_attention_2"} if USE_FLASH_ATTENTION else {}
+    # }
 }
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -51,17 +58,24 @@ def load_model(model_name):
     model_id = config["model_id"]   
     model_class = config["model_class"]
     
+    # Get HF token from environment if available
+    import os
+    hf_token = os.environ.get("HF_TOKEN", None)
+    
     model = model_class.from_pretrained(
         model_id,
         torch_dtype=torch.bfloat16,
         device_map="auto",
+        token=hf_token,  # Pass token for gated models like Llama
         **config.get("extra_kwargs", {})
     )
     
-    processor = AutoProcessor.from_pretrained(model_id)
-    
+    # Load processor (with token for gated models)
     if model_name == "pangea_vl":
-        processor = AutoProcessor.from_pretrained(model_id, use_fast=True, patch_size=14)
+        # Pangea requires patch_size parameter per official docs
+        processor = AutoProcessor.from_pretrained(model_id, token=hf_token, patch_size=14)
         model.resize_token_embeddings(len(processor.tokenizer))
+    else:
+        processor = AutoProcessor.from_pretrained(model_id, token=hf_token)
 
     return model, processor, DEVICE

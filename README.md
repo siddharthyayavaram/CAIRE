@@ -219,6 +219,52 @@ The file will have the following structure:
 
 ---
 
+## III. REST API
+
+For web integration, we provide a FastAPI-based REST API.
+
+### Installation
+
+```sh
+cd CAIRE
+conda activate caire
+pip install -r api/requirements_api.txt
+```
+
+### Start the API Server
+
+```sh
+./api/start_server.sh
+```
+
+Or manually:
+
+```sh
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+uvicorn api.server:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Server: `http://localhost:8001` | Docs: `http://localhost:8001/docs`
+
+### API Endpoints
+
+- **GET** `/api/health` - Health check
+- **GET** `/api/predefined-lists` - Get available culture lists
+- **POST** `/api/analyze` - Analyze image with custom cultures
+- **POST** `/api/analyze-with-predefined` - Analyze with predefined culture list
+
+### Example Usage
+
+```bash
+curl -X POST "http://localhost:8000/api/analyze" \
+  -F "image=@image.jpg" \
+  -F "cultures=India,China,USA"
+```
+
+For complete documentation, see [api/README.md](api/README.md) or [api/QUICKSTART.md](api/QUICKSTART.md)
+
+---
+
 ### Storage Requirements  
 
 > [!IMPORTANT]

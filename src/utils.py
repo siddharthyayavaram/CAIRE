@@ -69,6 +69,15 @@ def parse_args():
         nargs="+",
         help="List of image paths to process"
     )
+    
+    parser.add_argument(
+        "--model_name",
+        type=str,
+        default="qwen_vl",
+        choices=["qwen_vl", "pangea_vl", "llama_vl"],
+        help="VLM model to use for scoring (default: qwen_vl). Note: CulturalPangea not yet supported."
+    )
+    
     return parser.parse_args()
 
 def resolve_target_list(args):
@@ -120,7 +129,7 @@ def log_run_metadata(args, log_file="run_log.csv"):
 
 def save_readable(args, OUTPUT_PATH, output_file = 'combined_outputs.csv'):
     wiki_path = Path(OUTPUT_PATH) / f"{args.timestamp}" / "WIKI.pkl"
-    scores_path = Path(OUTPUT_PATH) / f"{args.timestamp}" / "1-5_scores_VLM_qwen.pkl"
+    scores_path = Path(OUTPUT_PATH) / f"{args.timestamp}" / f"1-5_scores_VLM_{args.model_name}.pkl"
     image_paths = args.image_paths
 
     csv_path = Path(cfg.OUTPUT_PATH) / f"{args.timestamp}" / output_file
@@ -135,9 +144,15 @@ def save_readable(args, OUTPUT_PATH, output_file = 'combined_outputs.csv'):
 
     with open(csv_path, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(["Image_Path", "Matched Entity", "Wikipedia Link", "Scores"])
+        writer.writerow(["Image_Path", "Matched Entity", "Wikipedia Link", "Scores", "Reasoning"])
         for idx, img_path in enumerate(image_paths):
             title = wiki_data[idx][0]['title']
             encoded_title = urllib.parse.quote(title)
             wiki_link = f"{base_wiki_link}{encoded_title}"
-            writer.writerow([str(img_path), title, wiki_link, str(scores_data[idx]['values'])])
+            writer.writerow([
+                str(img_path), 
+                title, 
+                wiki_link, 
+                str(scores_data[idx]['values']),
+                str(scores_data[idx]['reasoning'])
+            ])

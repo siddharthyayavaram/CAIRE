@@ -74,21 +74,24 @@ def process_group_bids(group_bids, babelnet_dict, max_docs):
         if len(group_pages) >= max_docs:
             break
 
-        wiki_direct, wiki_redirect = babelnet_dict[bid]
-        all_wiki = wiki_direct + wiki_redirect
+        try:
+            wiki_direct, wiki_redirect = babelnet_dict[bid]
+            all_wiki = wiki_direct + wiki_redirect
 
-        p = get_en_pages(all_wiki)
-        if p:
-            group_pages.append(p)
+            p = get_en_pages(all_wiki)
+            if p:
+                group_pages.append(p)
+                continue
+
+            p = get_non_en_pages(all_wiki)
+            if p:
+                group_pages.append(p)
+        except:
             continue
-
-        p = get_non_en_pages(all_wiki)
-        if p:
-            group_pages.append(p)
 
     return group_pages
 
-def wiki_retrieval(args, max_docs=20):
+def wiki_retrieval(args, max_docs=10):
     with open(Path(DATA_PATH) / BABELNET_WIKI, 'rb') as f:
         babelnet_dict = pickle.load(f)
 
