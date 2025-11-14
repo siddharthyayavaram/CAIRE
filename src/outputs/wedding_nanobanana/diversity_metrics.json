@@ -1,0 +1,9 @@
+{
+  "pairwise_jsd_mean": 0.0938367673536305,
+  "pairwise_jsd_std": 0.03334950161224763,
+  "pairwise_jsd_min": 0.03023397290899546,
+  "pairwise_jsd_max": 0.14361859017197418,
+  "coverage_ratio": 0.45,
+  "cultures_represented": 9,
+  "total_cultures": 20
+}

@@ -1,0 +1,9 @@
+{
+  "pairwise_jsd_mean": null,
+  "pairwise_jsd_std": null,
+  "pairwise_jsd_min": null,
+  "pairwise_jsd_max": null,
+  "coverage_ratio": 0.6666666666666666,
+  "cultures_represented": 2,
+  "total_cultures": 3
+}

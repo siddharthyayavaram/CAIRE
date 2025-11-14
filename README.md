@@ -211,6 +211,16 @@ The file will have the following structure:
    python -m src.main --target_list custom_targets.pkl --image_paths image_folder
    ```
 
+Try these examples directly:
+
+```sh
+python -m src.main --target_list "Canada, Brazil, United States, Mexico, Argentina, United Kingdom, France, Germany, Italy, Egypt, South Africa, Nigeria, India, China, Japan, South Korea, Australia, New Zealand, Saudi Arabia, Indonesia" \
+                      --image_paths examples/t2i/wedding/nanobanana/1.png examples/t2i/wedding/nanobanana/2.png examples/t2i/wedding/nanobanana/3.png examples/t2i/wedding/nanobanana/4.png examples/t2i/wedding/nanobanana/5.png 
+```
+
+```sh
+python -m src.main --target_list "West Africa, Caribbean, East Asia" --image_paths examples/djembe.png
+```
 ---
 
 ### Visualization  

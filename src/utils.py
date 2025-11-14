@@ -9,7 +9,13 @@ import urllib.parse
 from pathlib import Path
 from src import config as cfg
 from transformers import AutoProcessor, AutoModel
-
+import pandas as pd
+import numpy as np
+import ast
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
+from scipy.spatial.distance import jensenshannon
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 def load_model():
@@ -156,3 +162,150 @@ def save_readable(args, OUTPUT_PATH, output_file = 'combined_outputs.csv'):
                 str(scores_data[idx]['values']),
                 str(scores_data[idx]['reasoning'])
             ])
+
+def calculate_diversity_metrics(score_matrix, labels):
+    """
+    Calculate diversity metrics for cultural score distributions across images.
+    
+    Args:
+        score_matrix: numpy array of shape (num_images, num_labels)
+        labels: list of culture labels
+    
+    Returns:
+        dict with diversity metrics
+    """
+    num_images, num_labels = score_matrix.shape
+    
+    metrics = {}
+    
+    # Only calculate pairwise JSD if we have more than 1 image
+    if num_images > 1:
+        # Pairwise Image Distance using Jensen-Shannon Divergence (JSD)
+        # JSD measures how different probability distributions are (0 = identical, 1 = completely different)
+        # Normalize each image's scores to probability distributions
+        prob_matrix = score_matrix / score_matrix.sum(axis=1, keepdims=True)
+        
+        # Calculate JSD for all pairs of images
+        jsd_values = []
+        for i in range(num_images):
+            for j in range(i + 1, num_images):
+                jsd = jensenshannon(prob_matrix[i], prob_matrix[j])
+                jsd_values.append(jsd)
+        
+        metrics['pairwise_jsd_mean'] = float(np.mean(jsd_values))
+        metrics['pairwise_jsd_std'] = float(np.std(jsd_values))
+        metrics['pairwise_jsd_min'] = float(np.min(jsd_values))
+        metrics['pairwise_jsd_max'] = float(np.max(jsd_values))
+    else:
+        metrics['pairwise_jsd_mean'] = None
+        metrics['pairwise_jsd_std'] = None
+        metrics['pairwise_jsd_min'] = None
+        metrics['pairwise_jsd_max'] = None
+    
+    # Coverage Metric (works for any number of images)
+    # Count how many cultures get high scores (≥4) across all images
+    high_score_mask = score_matrix >= 4
+    cultures_with_high_scores = np.sum(np.any(high_score_mask, axis=0))
+    metrics['coverage_ratio'] = float(cultures_with_high_scores / num_labels)
+    metrics['cultures_represented'] = int(cultures_with_high_scores)
+    metrics['total_cultures'] = int(num_labels)
+    
+    return metrics
+
+def generate_heatmap(args, OUTPUT_PATH, csv_file='combined_outputs.csv'):
+    """
+    Generate a heatmap visualization of cultural relevance scores.
+    Scores are sorted by total score across all images.
+    Also calculates and logs diversity metrics.
+    """
+    try:
+        csv_path = Path(OUTPUT_PATH) / f"{args.timestamp}" / csv_file
+        
+        # Load the CSV
+        df = pd.read_csv(csv_path)
+        
+        # Parse the stringified dicts in 'Scores'
+        df["Scores"] = df["Scores"].apply(lambda x: ast.literal_eval(x))
+        
+        # Collect all labels and build a score matrix: (num_images × num_labels)
+        labels = sorted({k for d in df["Scores"] for k in d.keys()})
+        score_matrix = np.array(
+            [[d.get(label, 0.0) for label in labels] for d in df["Scores"]],
+            dtype=float
+        )
+        
+        num_images = len(df)
+        
+        # Calculate diversity metrics
+        diversity_metrics = calculate_diversity_metrics(score_matrix, labels)
+        
+        # Calculate total score for each country across all images
+        country_totals = score_matrix.sum(axis=0)  # sum across images for each country
+        
+        # Sort countries by total score (descending)
+        sorted_indices = np.argsort(country_totals)[::-1]  # reverse for descending
+        sorted_labels = [labels[i] for i in sorted_indices]
+        sorted_score_matrix = score_matrix[:, sorted_indices]
+        
+        # Plot heatmap with RAW scores, sorted by total
+        fig, ax = plt.subplots(figsize=(8, 10))
+        im = ax.imshow(sorted_score_matrix.T, aspect="auto", cmap='YlOrRd', vmin=1, vmax=5)
+        
+        # Ticks and labels
+        ax.set_xticks(range(len(df)))
+        ax.set_xticklabels([f"Img {i+1}" for i in range(len(df))], rotation=45, ha="right", 
+                            fontsize=16, fontweight='bold')
+        ax.set_yticks(range(len(sorted_labels)))
+        ax.set_yticklabels(sorted_labels, fontsize=16, fontweight='bold')
+        
+        # Colorbar
+        cbar = plt.colorbar(im, ax=ax)
+        cbar.set_label("CAIRE Score (1-5)", fontsize=16, fontweight='bold', labelpad=20)
+        cbar.ax.tick_params(labelsize=14)
+        # Make colorbar tick labels bold
+        for label in cbar.ax.get_yticklabels():
+            label.set_fontweight('bold')
+        
+        plt.tight_layout()
+        
+        # Save the heatmap
+        output_path = Path(OUTPUT_PATH) / f"{args.timestamp}" / "caire_heatmap.png"
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        logging.info(f"Heatmap saved to {output_path}")
+        
+        # Log top countries by total score
+        logging.info("\nTop 10 countries by total score:")
+        for i in range(min(10, len(sorted_labels))):
+            logging.info(f"  {i+1}. {sorted_labels[i]}: {country_totals[sorted_indices[i]]:.0f}")
+        
+        # Log diversity metrics
+        logging.info(f"\n{'='*60}")
+        logging.info("DIVERSITY METRICS ACROSS IMAGES:")
+        logging.info(f"{'='*60}")
+        logging.info(f"Number of images evaluated: {num_images}")
+        
+        if num_images > 1:
+            logging.info(f"\n1. Pairwise Jensen-Shannon Divergence (JSD):")
+            logging.info(f"   Mean JSD: {diversity_metrics['pairwise_jsd_mean']:.4f}")
+            logging.info(f"   Std Dev: {diversity_metrics['pairwise_jsd_std']:.4f}")
+            logging.info(f"   Range: [{diversity_metrics['pairwise_jsd_min']:.4f}, {diversity_metrics['pairwise_jsd_max']:.4f}]")
+            logging.info(f"   → Higher = Images have more diverse cultural score patterns (0=identical, 1=completely different)")
+        else:
+            logging.info(f"\n   (Pairwise JSD requires >1 image)")
+        
+        logging.info(f"\n2. Coverage (Cultural Representation):")
+        logging.info(f"   Cultures with score ≥4: {diversity_metrics['cultures_represented']}/{diversity_metrics['total_cultures']}")
+        logging.info(f"   Coverage Ratio: {diversity_metrics['coverage_ratio']:.2%}")
+        logging.info(f"   → Higher = More cultures strongly represented")
+        logging.info(f"{'='*60}\n")
+        
+        # Save metrics to JSON file
+        metrics_path = Path(OUTPUT_PATH) / f"{args.timestamp}" / "diversity_metrics.json"
+        with open(metrics_path, 'w') as f:
+            json.dump(diversity_metrics, f, indent=2)
+        logging.info(f"Diversity metrics saved to {metrics_path}")
+            
+    except Exception as e:
+        logging.error(f"Failed to generate heatmap: {e}", exc_info=True)

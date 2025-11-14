@@ -13,7 +13,7 @@ from src.scripts.retrieval import process_images
 from src.scripts.disambiguation import lemma_match
 from src.scripts.fetch_wikipedia import wiki_retrieval
 from src.scripts.culture_scores import qwen_vl_scores
-from src.utils import load_model, parse_args, resolve_image_paths, resolve_target_list, log_run_metadata, save_readable
+from src.utils import load_model, parse_args, resolve_image_paths, resolve_target_list, log_run_metadata, save_readable, generate_heatmap
 from src.config import MAX_WIKI_DOCS, OUTPUT_PATH
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -55,4 +55,6 @@ if __name__ == "__main__":
     log_run_metadata(args) 
     run_pipeline(args)
     save_readable(args, OUTPUT_PATH)
+    generate_heatmap(args, OUTPUT_PATH)
     logging.info(f"Outputs: {Path(OUTPUT_PATH) / f'{args.timestamp}' / 'combined_outputs.csv'}")
+    logging.info(f"Heatmap: {Path(OUTPUT_PATH) / f'{args.timestamp}' / 'caire_heatmap.png'}")
